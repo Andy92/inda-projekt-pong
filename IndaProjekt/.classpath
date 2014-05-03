@@ -7,6 +7,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Slick"/>
 	<classpathentry exported="true" kind="lib" path="lib/ibxm.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jinput.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jnlp.jar"/>
@@ -30,6 +31,10 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="IndaProjekt/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/lib/slick.jar"/>
+	<classpathentry kind="lib" path="lib/lib/slick.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="IndaProjekt/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
