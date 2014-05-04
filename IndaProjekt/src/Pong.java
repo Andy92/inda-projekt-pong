@@ -1,7 +1,5 @@
 import java.awt.Color;
 import java.awt.Shape;
-import java.util.HashSet;
-import java.util.Random;
 
 /**
  * Main class for the Game.
@@ -33,6 +31,7 @@ public class Pong {
 		// draw the game
 		gameField.fillRectangle(50, 50, 500, 350);
 		gameField.drawLine(150, 50, 300, 300);
+		
 
 		// Create 2 paddle objects.
 		int padxPos = 70;
@@ -47,7 +46,7 @@ public class Pong {
 
 		// Create a ball in the mid of game field.
 		int xPos = 150;
-		int yPos = 150;
+		int yPos = 250;
 		Ball ball = new Ball(xPos, yPos, 16, Color.white, bottom, gameField);
 		ball.draw();
 
@@ -58,8 +57,10 @@ public class Pong {
 		// make the ball move.
 		while(!paused) {			// If game is paused of not.
 			gameField.wait(50);
+			ball.receiveY(pad1.getYPosition(), pad2.getYPosition());
 			ball.move();
 			pad1.move();
+			pad2.move();
 		}
 	}
 }

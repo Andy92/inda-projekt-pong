@@ -49,9 +49,7 @@ public class Paddle {
     }    
 
     /**
-     * Move this ball according to its position and speed and redraw.
-     * Also creates a barrier that's a square, when a ball reaches it
-     * will bounce.
+     * If key pressed, moves paddle up or down on x axis.
      **/
     public void move() {
         // remove from canvas at the current position
@@ -77,16 +75,14 @@ public class Paddle {
     /**
      * return the horizontal position
      */
-    public int getXPosition()
-    {
+    public int getXPosition() {
         return xPosition;
     }
 
     /**
      * return the vertical position
      */
-    public int getYPosition()
-    {
+    public int getYPosition() {
         return yPosition;
     }
 }

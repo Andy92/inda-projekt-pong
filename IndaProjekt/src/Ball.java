@@ -21,7 +21,7 @@ public class Ball {
 	private Canvas canvas;
 	private int ySpeed;                // initial downward speed
 	private int xSpeed;
-	private Pong pong = new Pong();
+	private int padyPos, pad2yPos;
 
 	/**
 	 * Constructor
@@ -104,10 +104,21 @@ public class Ball {
 		}
 
 		// If ball hits paddle, bounce.
-		//if (pong.pad1.xPosition()) {
+		if ((yPosition <= (padyPos + 30)) && (yPosition >= (padyPos - 30))
+				&& (xPosition <= (80 + diameter))) {
+			xPosition = (80 + diameter);
+			xSpeed *= -1;
 		// TODO
-		//}
-
+		}
+		
+		if ((yPosition <= (pad2yPos + 30)) && (yPosition >= (pad2yPos - 30))
+				&& (xPosition >= (500 - diameter))) {
+			xPosition = (500 - diameter);
+			xSpeed *= -1;
+		}
+		// Prints current position of ball and paddle for testing purposes.
+		System.out.printf("Ball: x: %d y: %d\n Paddle1: x: 70 y: %d\n Paddle2: x: 510 y: %d\n", xPosition, yPosition, padyPos, pad2yPos);
+		
 		// draw again at new position
 		draw();
 	}
@@ -126,5 +137,10 @@ public class Ball {
 	public int getYPosition()
 	{
 		return yPosition;
+	}
+	
+	public void receiveY(int y, int y2) {
+		padyPos = y;
+		pad2yPos = y2;
 	}
 }
