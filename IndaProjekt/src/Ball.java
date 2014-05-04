@@ -3,16 +3,12 @@ import java.awt.geom.*;
 import java.util.Random;
 
 /**
- * Class BouncingBall - a graphical ball that observes the effect of gravity. The ball
- * has the ability to move. Details of movement are determined by the ball itself. It
- * will fall downwards, accelerating with time due to the effect of gravity, and bounce
- * upward again when hitting the ground.
+ * Creates a ball that bounces on walls.
  *
- * This movement can be initiated by repeated calls to the "move" method.
  * 
- * @author Andy Yousef
+ * @author 
  *
- * @version 2014-05-04
+ * @version 
  */
 
 public class Ball {
@@ -28,7 +24,7 @@ public class Ball {
 	private Pong pong = new Pong();
 
 	/**
-	 * Constructor for objects of class BouncingBall
+	 * Constructor
 	 *
 	 * @param xPos  the horizontal coordinate of the ball
 	 * @param yPos  the vertical coordinate of the ball

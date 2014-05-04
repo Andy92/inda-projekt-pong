@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Random;
 
 /**
- * 
+ * Main class for the Game.
  *
  * @author 
  * @version 
