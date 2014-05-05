@@ -38,8 +38,8 @@ public class Ball {
 		color = ballColor;
 		diameter = ballDiameter;
 		canvas = drawingCanvas;
-		ySpeed = 10;
-		xSpeed = 20;
+		ySpeed = 0;
+		xSpeed = 3;
 	}
 
 	/**
@@ -78,7 +78,8 @@ public class Ball {
 		checkHitLeftRight();
 		
 		// If ball hits paddle, bounce.
-		checkHitPaddle();
+		checkHitRightPaddle();
+		checkHitLeftPaddle();
 		
 		// Prints current position of ball and paddle for testing purposes. //TODO Remove after testing
 		System.out.printf("Ball: x: %d y: %d\n Paddle1: x: 70 y: %d\n Paddle2: x: 510 y: %d\n", xPosition, yPosition, padyPos, pad2yPos);
@@ -115,18 +116,55 @@ public class Ball {
 		}
 	}
 	
-	private void checkHitPaddle() {
-		// check if hit left paddle
-		if ((yPosition <= (padyPos + 30)) && (yPosition >= (padyPos - 30))
-				&& (xPosition <= (80 + diameter))) {
+	/**
+	 * Checks if the ball has hit the left paddle,
+	 * and which side of the paddle.
+	 * (depending if the ball hit bottom or top side, it will accelerate on y-axis).
+	 */
+	private void checkHitLeftPaddle() {
+		// Mid of the paddle.
+		if ((yPosition <= (padyPos + 10)) && (yPosition >= (padyPos - 10))
+				&& (xPosition <= (80 + diameter)) && (xPosition >= (80 + (diameter/2)))) {
 			xPosition = (80 + diameter);
 			xSpeed *= -1;
-			// TODO
-			
-		} else if ((yPosition <= (pad2yPos + 30)) && (yPosition >= (pad2yPos - 30))
-				&& (xPosition >= (500 - diameter))) {
+		} // top side of the paddle.
+		else if ((yPosition <= (padyPos - 10)) && (yPosition >= (padyPos - 30))
+				&& (xPosition <= (80 + diameter)) && (xPosition >= (80 + (diameter/2)))) {
+			xPosition = (80 + diameter);
+			xSpeed *= -1;
+			ySpeed -= 1;
+		} // down side of the paddle.
+		else if ((yPosition <= (padyPos + 30)) && (yPosition >= (padyPos + 10))
+				&& (xPosition <= (80 + diameter)) && (xPosition >= (80 + (diameter/2)))) {
+			xPosition = (80 + diameter);
+			xSpeed *= -1;
+			ySpeed += 1;
+		}
+	}
+	
+	/**
+	 * Checks if the ball has hit the right paddle,
+	 * and which side of the paddle.
+	 * (depending if the ball hit bottom or top side, it will accelerate on y-axis).
+	 */
+	private void checkHitRightPaddle() {
+		// Mid of the paddle.
+		if ((yPosition <= (pad2yPos + 10)) && (yPosition >= (pad2yPos - 10))
+				&& (xPosition >= (500 - diameter)) && (xPosition <= (500 - (diameter/2)))) {
 			xPosition = (500 - diameter);
 			xSpeed *= -1;
+		} // top side of the paddle.
+		else if ((yPosition <= (pad2yPos - 10)) && (yPosition >= (pad2yPos - 30))
+				&& (xPosition >= (500 - diameter)) && (xPosition <= (500 - (diameter/2)))) {
+			xPosition = (500 - diameter);
+			xSpeed *= -1;
+			ySpeed -= 1;
+		} // down side of the paddle.
+		else if ((yPosition <= (padyPos + 30)) && (yPosition >= (padyPos + 10))
+				&& (xPosition >= (500 - diameter)) && (xPosition <= (500 - (diameter/2)))) {
+			xPosition = (500 - diameter);
+			xSpeed *= -1;
+			ySpeed += 1;
 		}
 	}
 

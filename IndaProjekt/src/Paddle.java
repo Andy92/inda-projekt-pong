@@ -25,7 +25,7 @@ public class Paddle {
         width = wid;
         height = he;
         canvas = drawingCanvas;
-        ySpeed = 10;
+        ySpeed = 3;
         ground = bottom;
     }
 
@@ -59,7 +59,7 @@ public class Paddle {
         
         if (yPosition >= (ground - (height)) && ySpeed > 0) {
             yPosition = (int)(ground - (height));
-            ySpeed = -ySpeed;
+            ySpeed *= -1;
         }
         
         if (yPosition <= 50) {

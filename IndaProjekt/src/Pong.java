@@ -10,7 +10,7 @@ import java.awt.Color;
 public class Pong {
 	private static Canvas gameField;
 	private static boolean paused = false;
-	private static String GAMENAME = "Pong";
+	private static final String GAMENAME = "Pong";
 
 	// Positions of the bottom, top, left and right edges of the playing field.
 	private static final int TOP = 50;
@@ -26,7 +26,7 @@ public class Pong {
 	private static Color secondaryColor = Color.WHITE;
 	
 	/**
-	 * Create a BallDemo object. Creates a fresh canvas and makes it visible.
+	 *
 	 */
 	public static void main(String[] args) {
 		createGameField();
@@ -66,8 +66,8 @@ public class Pong {
 		padRight.draw();
 
 		// Create a ball in the mid of game field.
-		int xPos = 150;
-		int yPos = 250;
+		int xPos = RIGHT/2 + LEFT/2;
+		int yPos = BOTTOM/2 + TOP/2;
 		ball = new Ball(xPos, yPos, 16, secondaryColor, BOTTOM, gameField);
 		ball.draw();
 	}
@@ -78,8 +78,8 @@ public class Pong {
 		// paused = true;
 
 		// make the ball move.
-		while(!paused) {			// If game is paused of not.
-			gameField.wait(50); //TODO increase refresh rate
+		while(!paused) {			// If game is paused or not.
+			gameField.wait(10); //TODO adjust refresh rate
 			ball.receiveY(padLeft.getYPosition(), padRight.getYPosition());
 			ball.move();
 			drawMidLine();
