@@ -1,6 +1,6 @@
 import java.awt.*;
-import java.awt.geom.*;
-import java.util.Random;
+//import java.awt.geom.*;
+//import java.util.Random;
 
 /**
  * Creates a ball that bounces on walls.

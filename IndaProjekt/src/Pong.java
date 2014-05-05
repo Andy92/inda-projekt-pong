@@ -1,5 +1,5 @@
 import java.awt.Color;
-import java.awt.Shape;
+//import java.awt.Shape;
 
 /**
  * Main class for the Game.
@@ -24,7 +24,7 @@ public class Pong {
 	 */
 	public static void ballPhy() {
 		int bottom = 400;   // position of the ground line
-		int top = 50;		// position of the top line
+		//int top = 50;		// position of the top line
 
 		gameField.setVisible(true);
 
