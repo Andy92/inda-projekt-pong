@@ -1,13 +1,11 @@
 import java.awt.*;
 //import java.awt.geom.*;
-//import java.util.Random;
 
 /**
  * 
  */
-
 public class Paddle {
-
+	
     private Color color;
     private int width;
     private int height;
@@ -41,7 +39,7 @@ public class Paddle {
 
     /**
      * Set the default background color black.
-     * Erase this ball at its current position.
+     * Erase this paddle at its current position.
      **/
     public void erase() {
         canvas.setBackgroundColor(Color.BLACK);
@@ -52,6 +50,7 @@ public class Paddle {
      * If key pressed, moves paddle up or down on x axis.
      **/
     public void move() {
+    	//TODO move on key press
         // remove from canvas at the current position
         erase();
 
