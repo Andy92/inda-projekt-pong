@@ -296,6 +296,7 @@ public class Canvas {
 	 * refresh the image drawn on it.
 	 */
 	private class CanvasPane extends JPanel {
+		private static final long serialVersionUID = 42L;
 		public void paint(Graphics g) {
 			g.drawImage(canvasImage, 0, 0, null);
 		}

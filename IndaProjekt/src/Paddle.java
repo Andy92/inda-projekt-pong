@@ -71,6 +71,13 @@ public class Paddle {
         // draw again at new position
         draw();
     }    
+    
+    /**
+     * Return the height of the paddle.
+     */
+    public int getHeight() {
+    	return height;
+    }
 
     /**
      * return the horizontal position
