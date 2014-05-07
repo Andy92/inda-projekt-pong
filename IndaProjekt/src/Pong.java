@@ -85,6 +85,8 @@ public class Pong {
 			drawMidLine();
 			padLeft.move();
 			padRight.move();
+			// Prints current position of ball and paddle for testing purposes. //TODO Remove after testing
+			printTestData();
 		}
 	}
 	
@@ -110,5 +112,14 @@ public class Pong {
 	
 	public static Color getSecondaryColor() {
 		return secondaryColor;
+	}
+	
+	public static void printTestData() {
+		int ballX = ball.getXPosition();
+		int ballY = ball.getYPosition();
+		int padPos = padLeft.getYPosition();
+		int pad2Pos = padRight.getYPosition();
+		System.out.printf("Ball: x: %d y: %d\n Paddle1: x: 70 y: %d\n Paddle2: x: 510 y: %d\n", ballX, ballY, padPos, pad2Pos);
+
 	}
 }

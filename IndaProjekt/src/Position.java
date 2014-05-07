@@ -1,0 +1,32 @@
+/**
+ * 
+ */
+public class Position {
+	private int xPosition, yPosition;
+	
+	public Position(int xPos, int yPos) {
+		xPosition = xPos;
+		yPosition = yPos;
+	}
+	
+	public int getYPos() {
+		return yPosition;
+	}
+	
+	public int getXPos() {
+		return xPosition;
+	}
+	
+	public void setYPos(int yPos) {
+		yPosition = yPos;
+	}
+	
+	public void setXPos(int xPos) {
+		xPosition = xPos;
+	}
+	
+	public void setPos(int xPos, int yPos) {
+		xPosition = xPos;
+		yPosition = yPos;
+	}
+}

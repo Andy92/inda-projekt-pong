@@ -81,9 +81,6 @@ public class Ball {
 		checkHitRightPaddle();
 		checkHitLeftPaddle();
 		
-		// Prints current position of ball and paddle for testing purposes. //TODO Remove after testing
-		System.out.printf("Ball: x: %d y: %d\n Paddle1: x: 70 y: %d\n Paddle2: x: 510 y: %d\n", xPosition, yPosition, padyPos, pad2yPos);
-
 		// draw again at new position
 		draw();
 	}
