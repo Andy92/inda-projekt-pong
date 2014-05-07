@@ -29,4 +29,12 @@ public class Position {
 		xPosition = xPos;
 		yPosition = yPos;
 	}
+	
+	public void changeXPos(int change) {
+		xPosition += change;
+	}
+	
+	public void changeYPos(int change) {
+		yPosition += change;
+	}
 }
