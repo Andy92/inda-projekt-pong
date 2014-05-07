@@ -20,6 +20,10 @@ public class Pong {
 
 	private static Paddle padLeft, padRight;
 	private static Ball ball;
+	
+	// initial speed of ball
+	private static int ySpeed = 0;
+	private static int xSpeed = 3;
 
 	// color theme
 	private static Color mainColor = Color.BLACK;
@@ -68,7 +72,7 @@ public class Pong {
 		// Create a ball in the mid of game field.
 		int xPos = RIGHT/2 + LEFT/2;
 		int yPos = BOTTOM/2 + TOP/2;
-		ball = new Ball(xPos, yPos, 16, secondaryColor, BOTTOM, gameField);
+		ball = new Ball(xPos, yPos, 16, secondaryColor, BOTTOM, gameField, ySpeed, xSpeed);
 		ball.draw();
 	}
 

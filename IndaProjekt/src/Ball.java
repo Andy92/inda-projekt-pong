@@ -32,14 +32,14 @@ public class Ball {
 	 * @param ySpeed  the vertical speed of the ball
 	 * @param xSpeed  the horizontal speed of the ball
 	 */
-	public Ball(int xPos, int yPos, int ballDiameter, Color ballColor, int groundPos, Canvas drawingCanvas) {
+	public Ball(int xPos, int yPos, int ballDiameter, Color ballColor, int groundPos, Canvas drawingCanvas, int ySpeed, int xSpeed) {
 		xPosition = xPos;
 		yPosition = yPos;
 		color = ballColor;
 		diameter = ballDiameter;
 		canvas = drawingCanvas;
-		ySpeed = 0;
-		xSpeed = 3;
+		this.ySpeed = ySpeed;
+		this.xSpeed = xSpeed;
 	}
 
 	/**
@@ -100,6 +100,7 @@ public class Ball {
 	}
 	
 	private void checkHitLeftRight() {
+		//TODO points on hit
 		// check if it has hit the right wall
 		if (xPosition >= Pong.getRight() - diameter) {
 			xPosition = Pong.getRight() - diameter;
