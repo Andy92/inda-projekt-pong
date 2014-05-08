@@ -139,12 +139,12 @@ public class Ball {
 	private void checkHitLeftPaddle() {
 		//TODO needs more work
 		// Mid of the paddle.
-		if ((yPosition <= (padyPos + 40)) && (yPosition >= (padyPos + 20))
+		if ((yPosition <= (padyPos + 40)) && (yPosition >= (padyPos + 20 - diameter))
 				&& (xPosition <= 90)) {
 			xPosition = 90;
 			xSpeed *= -1;
 		} // top side of the paddle.
-		else if ((yPosition <= (padyPos + 20)) && (yPosition >= (padyPos))
+		else if ((yPosition <= (padyPos + 20 - diameter)) && (yPosition >= (padyPos - diameter))
 				&& (xPosition <= 90)) {
 			xPosition = 90;
 			xSpeed *= -1;
@@ -166,12 +166,12 @@ public class Ball {
 	private void checkHitRightPaddle() {
 		//TODO needs more work
 		// Mid of the paddle.
-		if ((yPosition <= (pad2yPos + 40)) && (yPosition >= (pad2yPos + 20))
+		if ((yPosition <= (pad2yPos + 40)) && (yPosition >= (pad2yPos + 20 - diameter))
 				&& (xPosition >= (510 - diameter))) {
 			xPosition = (510 - diameter);
 			xSpeed *= -1;
 		} // top side of the paddle.
-		else if ((yPosition <= (pad2yPos + 20)) && (yPosition >= (pad2yPos))
+		else if ((yPosition <= (pad2yPos + 20 - diameter)) && (yPosition >= (pad2yPos - diameter))
 				&& (xPosition >= (510 - diameter))) {
 			xPosition = (510 - diameter);
 			xSpeed *= -1;
