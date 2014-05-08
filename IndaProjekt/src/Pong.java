@@ -24,7 +24,11 @@ public class Pong {
 	private static final int RIGHT = 550;
 
 	private static Paddle padLeft, padRight;
+	private static final int PAD_HEIGHT = 60;
+	private static final int PAD_WIDTH = 20;
+	
 	private static Ball ball;
+	private static final int BALL_SIZE = 16;
 	
 	// initial speed of ball
 	private static int ySpeed = 0;
@@ -113,20 +117,20 @@ public class Pong {
 	 */
 	private static void createGameObjects() {
 		// Create 2 paddle objects.
-		int padxPos = 70; // create pad1 to the left
-		int pad2xPos = 510; // create pad2 to the right
-		int padyPos = 220; // create both pads at mid height
-		int width = 20; // the width of the pads
-		int height = 60; // the height of the pads
+		int padxPos = LEFT + 20; // create pad1 to the left
+		int pad2xPos = RIGHT - PAD_WIDTH - 20; // create pad2 to the right
+		int padyPos = (BOTTOM + TOP - PAD_HEIGHT)/2; // create both pads at mid height
+		int width = PAD_WIDTH; // the width of the pads
+		int height = PAD_HEIGHT; // the height of the pads
 		padLeft = new Paddle(padxPos, padyPos, width, height, secondaryColor, gameField, BOTTOM);
 		padRight = new Paddle(pad2xPos, padyPos, width, height, secondaryColor, gameField, BOTTOM);
 		padLeft.draw();
 		padRight.draw();
 
 		// Create a ball in the mid of game field.
-		int xPos = RIGHT/2 + LEFT/2;
-		int yPos = BOTTOM/2 + TOP/2;
-		ball = new Ball(xPos, yPos, 16, secondaryColor, BOTTOM, gameField, ySpeed, xSpeed);
+		int xPos = (RIGHT + LEFT - BALL_SIZE)/2;
+		int yPos = (BOTTOM + TOP - BALL_SIZE)/2;
+		ball = new Ball(xPos, yPos, BALL_SIZE, secondaryColor, BOTTOM, gameField, ySpeed, xSpeed);
 		ball.draw();
 	}
 
