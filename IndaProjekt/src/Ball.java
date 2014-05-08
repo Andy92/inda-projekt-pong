@@ -170,7 +170,7 @@ public class Ball {
 			xSpeed *= -1;
 			ySpeed -= 1;
 		} // down side of the paddle.
-		else if ((yPosition <= (padyPos + 60)) && (yPosition >= (padyPos + 40))
+		else if ((yPosition <= (pad2yPos + 60)) && (yPosition >= (pad2yPos + 40))
 				&& (xPosition >= (510 - diameter))) {
 			xPosition = (510 - diameter);
 			xSpeed *= -1;
