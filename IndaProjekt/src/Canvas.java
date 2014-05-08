@@ -334,10 +334,4 @@ public class Canvas implements KeyListener, ActionListener {
 	public void addKeyListener(KeyListener keyListener) {
 		frame.addKeyListener(keyListener);
 	}
-	
-	public void label() {
-		JLabel textLabel = new JLabel("PAUSED",SwingConstants.CENTER); textLabel.setPreferredSize(new Dimension(300, 100));
-		frame.getContentPane().add(textLabel, BorderLayout.CENTER); 
-		frame.setLocationRelativeTo(null);
-		}
 }

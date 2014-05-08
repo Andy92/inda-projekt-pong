@@ -12,7 +12,7 @@ public class Paddle {
     private int xPosition;
     private int yPosition;
     private Canvas canvas;
-    public int ySpeed;                // initial downward speed
+    private int ySpeed;                // downward speed
     private int ground;
 
     /**
@@ -25,7 +25,7 @@ public class Paddle {
         width = wid;
         height = he;
         canvas = drawingCanvas;
-        ySpeed = 0;
+        setySpeed(0);
         ground = bottom;
     }
 
@@ -54,14 +54,14 @@ public class Paddle {
         erase();
 
         // compute new position
-        yPosition += ySpeed;
-        
-        if (yPosition >= (ground - (height)) && ySpeed > 0) {
+        yPosition += getySpeed();
+
+        if (yPosition >= (ground - (height)) && getySpeed() > 0) {
             yPosition = (int)(ground - (height));
         }
         
-        if (yPosition <= 50) {
-            yPosition = 50;
+        if (yPosition <= Pong.getTop()) {
+            yPosition = Pong.getTop();
         }
 
         // draw again at new position
@@ -88,4 +88,12 @@ public class Paddle {
     public int getYPosition() {
         return yPosition;
     }
+
+	public int getySpeed() {
+		return ySpeed;
+	}
+
+	public void setySpeed(int ySpeed) {
+		this.ySpeed = ySpeed;
+	}
 }

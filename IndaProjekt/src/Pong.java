@@ -13,8 +13,8 @@ import java.awt.event.KeyListener;
  * @version 
  */
 public class Pong {
-	public static Canvas gameField;
-	public static boolean paused = false;
+	private static Canvas gameField;
+	private static boolean paused = false;
 	private static final String GAMENAME = "Pong";
 
 	// Positions of the bottom, top, left and right edges of the playing field.
@@ -53,15 +53,15 @@ public class Pong {
 			    public void keyPressed(KeyEvent e) { 
 			    	// Left Paddle keys.
 			    	if (e.getKeyCode() == 87) { // If W is pressed.
-			    		padLeft.ySpeed = -3;		// move upwards
+			    		padLeft.setySpeed(-3);		// move upwards
 			    	} else if (e.getKeyCode() == 83) { // If S is pressed.
-			    		padLeft.ySpeed = 3;			// move down
+			    		padLeft.setySpeed(3);			// move down
 			    	}
 			    	// Right Paddle keys.
 			    	if (e.getKeyCode() == 38) { // If Up-arrow is pressed.
-			    		padRight.ySpeed = -3;
+			    		padRight.setySpeed(-3);
 			    	} else if (e.getKeyCode() == 40) { // If down-arrow is pressed.
-			    		padRight.ySpeed = 3;
+			    		padRight.setySpeed(3);
 			    	}
 			    	
 			    	if (e.getKeyCode() == 80) { // P-key for pause
@@ -79,15 +79,15 @@ public class Pong {
 			    public void keyReleased(KeyEvent e) {
 			    	// Left paddle keys.
 			    	if (e.getKeyCode() == 87) {
-			    		padLeft.ySpeed = 0;
+			    		padLeft.setySpeed(0);
 			    	} else if (e.getKeyCode() == 83) {
-			    		padLeft.ySpeed = 0;
+			    		padLeft.setySpeed(0);
 			    	}
 			    	// Right paddle keys.
 			    	if (e.getKeyCode() == 38) {
-			    		padRight.ySpeed = 0;
+			    		padRight.setySpeed(0);
 			    	} else if (e.getKeyCode() == 40) {
-			    		padRight.ySpeed = 0;
+			    		padRight.setySpeed(0);
 			    	}
 			    }
 			    public void keyTyped(KeyEvent e) { 
@@ -115,7 +115,7 @@ public class Pong {
 		// Create 2 paddle objects.
 		int padxPos = 70; // create pad1 to the left
 		int pad2xPos = 510; // create pad2 to the right
-		int padyPos = 250; // create both pads at mid height
+		int padyPos = 220; // create both pads at mid height
 		int width = 20; // the width of the pads
 		int height = 60; // the height of the pads
 		padLeft = new Paddle(padxPos, padyPos, width, height, secondaryColor, gameField, BOTTOM);
@@ -175,6 +175,14 @@ public class Pong {
 	
 	public static Color getSecondaryColor() {
 		return secondaryColor;
+	}
+	
+	public static void setPaused(boolean bool) {
+		paused = bool;
+	}
+	
+	public static boolean getPaused() {
+		return paused;
 	}
 	
 	public static void printTestData() {

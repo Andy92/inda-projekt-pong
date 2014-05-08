@@ -103,13 +103,17 @@ public class Ball {
 		//TODO points on hit
 		// check if it has hit the right wall
 		if (xPosition >= Pong.getRight() - diameter) {
-			xPosition = Pong.getRight() - diameter;
+			xPosition = Pong.getRight()/2 + Pong.getLeft()/2;
+			yPosition = Pong.getBottom()/2 + Pong.getTop()/2;
+			ySpeed = 0;
 			xSpeed *= -1;
 		}
 
 		// check if it has hit the left wall
 		if (xPosition <= Pong.getLeft()) {
-			xPosition = Pong.getLeft();
+			xPosition = Pong.getRight()/2 + Pong.getLeft()/2;
+			yPosition = Pong.getBottom()/2 + Pong.getTop()/2;
+			ySpeed = 0;
 			xSpeed *= -1;
 		}
 	}
@@ -121,20 +125,20 @@ public class Ball {
 	 */
 	private void checkHitLeftPaddle() {
 		// Mid of the paddle.
-		if ((yPosition <= (padyPos + 10)) && (yPosition >= (padyPos - 10))
-				&& (xPosition <= (80 + diameter)) && (xPosition >= (80 + (diameter/2)))) {
-			xPosition = (80 + diameter);
+		if ((yPosition <= (padyPos + 40)) && (yPosition >= (padyPos + 20))
+				&& (xPosition <= 90)) {
+			xPosition = 90;
 			xSpeed *= -1;
 		} // top side of the paddle.
-		else if ((yPosition <= (padyPos - 10)) && (yPosition >= (padyPos - 30))
-				&& (xPosition <= (80 + diameter)) && (xPosition >= (80 + (diameter/2)))) {
-			xPosition = (80 + diameter);
+		else if ((yPosition <= (padyPos + 20)) && (yPosition >= (padyPos))
+				&& (xPosition <= 90)) {
+			xPosition = 90;
 			xSpeed *= -1;
 			ySpeed -= 1;
 		} // down side of the paddle.
-		else if ((yPosition <= (padyPos + 30)) && (yPosition >= (padyPos + 10))
-				&& (xPosition <= (80 + diameter)) && (xPosition >= (80 + (diameter/2)))) {
-			xPosition = (80 + diameter);
+		else if ((yPosition <= (padyPos + 60)) && (yPosition >= (padyPos + 40))
+				&& (xPosition <= 90)) {
+			xPosition = 90;
 			xSpeed *= -1;
 			ySpeed += 1;
 		}
@@ -147,20 +151,20 @@ public class Ball {
 	 */
 	private void checkHitRightPaddle() {
 		// Mid of the paddle.
-		if ((yPosition <= (pad2yPos + 10)) && (yPosition >= (pad2yPos - 10))
-				&& (xPosition >= (500 - diameter)) && (xPosition <= (500 - (diameter/2)))) {
-			xPosition = (500 - diameter);
+		if ((yPosition <= (pad2yPos + 40)) && (yPosition >= (pad2yPos + 20))
+				&& (xPosition >= (510 - diameter))) {
+			xPosition = (510 - diameter);
 			xSpeed *= -1;
 		} // top side of the paddle.
-		else if ((yPosition <= (pad2yPos - 10)) && (yPosition >= (pad2yPos - 30))
-				&& (xPosition >= (500 - diameter)) && (xPosition <= (500 - (diameter/2)))) {
-			xPosition = (500 - diameter);
+		else if ((yPosition <= (pad2yPos + 20)) && (yPosition >= (pad2yPos))
+				&& (xPosition >= (510 - diameter))) {
+			xPosition = (510 - diameter);
 			xSpeed *= -1;
 			ySpeed -= 1;
 		} // down side of the paddle.
-		else if ((yPosition <= (padyPos + 30)) && (yPosition >= (padyPos + 10))
-				&& (xPosition >= (500 - diameter)) && (xPosition <= (500 - (diameter/2)))) {
-			xPosition = (500 - diameter);
+		else if ((yPosition <= (padyPos + 60)) && (yPosition >= (padyPos + 40))
+				&& (xPosition >= (510 - diameter))) {
+			xPosition = (510 - diameter);
 			xSpeed *= -1;
 			ySpeed += 1;
 		}
