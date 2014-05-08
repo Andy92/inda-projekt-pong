@@ -103,18 +103,26 @@ public class Ball {
 		//TODO points on hit
 		// check if it has hit the right wall
 		if (xPosition >= Pong.getRight() - diameter) {
-			xPosition = Pong.getRight()/2 + Pong.getLeft()/2;
-			yPosition = Pong.getBottom()/2 + Pong.getTop()/2;
-			ySpeed = 0;
-			xSpeed *= -1;
+			resetBall();
 		}
 
 		// check if it has hit the left wall
 		if (xPosition <= Pong.getLeft()) {
-			xPosition = Pong.getRight()/2 + Pong.getLeft()/2;
-			yPosition = Pong.getBottom()/2 + Pong.getTop()/2;
-			ySpeed = 0;
-			xSpeed *= -1;
+			resetBall();
+		}
+	}
+	
+	private void resetBall() {
+		xPosition = Pong.getRight()/2 + Pong.getLeft()/2 - diameter/2;
+		yPosition = Pong.getBottom()/2 + Pong.getTop()/2 - diameter/2;
+		ySpeed = 0;
+		xSpeed *= -1;
+		draw();
+		try {
+			Thread.sleep(1000);
+		} 
+		catch (InterruptedException e) {
+			// ignoring exception at the moment
 		}
 	}
 	
