@@ -113,17 +113,22 @@ public class Ball {
 	}
 	
 	private void resetBall() {
+		blink(); 
 		xPosition = Pong.getRight()/2 + Pong.getLeft()/2 - diameter/2;
 		yPosition = Pong.getBottom()/2 + Pong.getTop()/2 - diameter/2;
 		ySpeed = 0;
 		xSpeed *= -1;
 		draw();
-		try {
-			Thread.sleep(1000);
-		} 
-		catch (InterruptedException e) {
-			// ignoring exception at the moment
-		}
+		sleep(800);
+	}
+	
+	private void blink() {
+		for (int i = 0; i < 3; i++) {
+			sleep(300);
+			draw();
+			sleep(300);
+			erase();
+		}		
 	}
 	
 	/**
@@ -132,6 +137,7 @@ public class Ball {
 	 * (depending if the ball hit bottom or top side, it will accelerate on y-axis).
 	 */
 	private void checkHitLeftPaddle() {
+		//TODO needs more work
 		// Mid of the paddle.
 		if ((yPosition <= (padyPos + 40)) && (yPosition >= (padyPos + 20))
 				&& (xPosition <= 90)) {
@@ -158,6 +164,7 @@ public class Ball {
 	 * (depending if the ball hit bottom or top side, it will accelerate on y-axis).
 	 */
 	private void checkHitRightPaddle() {
+		//TODO needs more work
 		// Mid of the paddle.
 		if ((yPosition <= (pad2yPos + 40)) && (yPosition >= (pad2yPos + 20))
 				&& (xPosition >= (510 - diameter))) {
@@ -195,5 +202,14 @@ public class Ball {
 	public void receiveY(int y, int y2) {
 		padyPos = y;
 		pad2yPos = y2;
+	}
+	
+	private void sleep(int millis) {
+		try {
+			Thread.sleep(millis);
+		} 
+		catch (InterruptedException e) {
+			// ignoring exception at the moment
+		}
 	}
 }
