@@ -1,5 +1,10 @@
 import java.awt.Color;
+import java.awt.Font;
 //import java.awt.Shape;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+//import javax.swing.JFrame;
 
 /**
  * Main class for the Game.
@@ -8,8 +13,8 @@ import java.awt.Color;
  * @version 
  */
 public class Pong {
-	private static Canvas gameField;
-	private static boolean paused = false;
+	public static Canvas gameField;
+	public static boolean paused = false;
 	private static final String GAMENAME = "Pong";
 
 	// Positions of the bottom, top, left and right edges of the playing field.
@@ -28,7 +33,6 @@ public class Pong {
 	// color theme
 	private static Color mainColor = Color.BLACK;
 	private static Color secondaryColor = Color.WHITE;
-	
 	/**
 	 *
 	 */
@@ -40,7 +44,57 @@ public class Pong {
 
 	private static void createGameField() {
 		gameField = new Canvas(GAMENAME, 600, 500, secondaryColor);
+		
+		/**
+		 * Action happens when specific keys are pressed.
+		 * Focus is set on Jframe in class Canvas.
+		 */
+		gameField.addKeyListener(new KeyListener() {
+			    public void keyPressed(KeyEvent e) { 
+			    	// Left Paddle keys.
+			    	if (e.getKeyCode() == 87) { // If W is pressed.
+			    		padLeft.ySpeed = -3;		// move upwards
+			    	} else if (e.getKeyCode() == 83) { // If S is pressed.
+			    		padLeft.ySpeed = 3;			// move down
+			    	}
+			    	// Right Paddle keys.
+			    	if (e.getKeyCode() == 38) { // If Up-arrow is pressed.
+			    		padRight.ySpeed = -3;
+			    	} else if (e.getKeyCode() == 40) { // If down-arrow is pressed.
+			    		padRight.ySpeed = 3;
+			    	}
+			    	
+			    	if (e.getKeyCode() == 80) { // P-key for pause
+			    		if (!paused) {
+			    			paused = true;
+			    		} else {
+			    			paused = false;
+			    		}
+			    	}
+			    	if (e.getKeyCode() == 77) { // M-key for menu access.
+			    		// TODO
+			    	}
+			    }
 
+			    public void keyReleased(KeyEvent e) {
+			    	// Left paddle keys.
+			    	if (e.getKeyCode() == 87) {
+			    		padLeft.ySpeed = 0;
+			    	} else if (e.getKeyCode() == 83) {
+			    		padLeft.ySpeed = 0;
+			    	}
+			    	// Right paddle keys.
+			    	if (e.getKeyCode() == 38) {
+			    		padRight.ySpeed = 0;
+			    	} else if (e.getKeyCode() == 40) {
+			    		padRight.ySpeed = 0;
+			    	}
+			    }
+			    public void keyTyped(KeyEvent e) { 
+			    	// Do nothing.
+			    }
+		});
+		// TODO Add buttons
 		gameField.setVisible(true);
 
 		// draw the game
@@ -76,12 +130,10 @@ public class Pong {
 		ball.draw();
 	}
 
+	/**
+	 * Plays the game.
+	 */
 	private static void playGame() {
-		// Pause or unpause game.
-		// if (onkeypress)
-		// paused = true;
-
-		// make the ball move.
 		while(!paused) {			// If game is paused or not.
 			gameField.wait(10); //TODO adjust refresh rate
 			ball.receiveY(padLeft.getYPosition(), padRight.getYPosition());
@@ -92,6 +144,13 @@ public class Pong {
 			// Prints current position of ball and paddle for testing purposes. //TODO Remove after testing
 			printTestData();
 		}
+		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 40));
+		while(paused) {
+			gameField.drawString("PAUSED", RIGHT/2 + LEFT/2, BOTTOM/2 + TOP/2);
+			// do nothing.
+		}
+		gameField.eraseString("PAUSED", RIGHT/2 + LEFT/2, BOTTOM/2 + TOP/2);
+		playGame();
 	}
 	
 	public static int getTop() {
@@ -124,6 +183,5 @@ public class Pong {
 		int padPos = padLeft.getYPosition();
 		int pad2Pos = padRight.getYPosition();
 		System.out.printf("Ball: x: %d y: %d\n Paddle1: x: 70 y: %d\n Paddle2: x: 510 y: %d\n", ballX, ballY, padPos, pad2Pos);
-
 	}
 }

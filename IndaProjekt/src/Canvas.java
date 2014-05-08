@@ -1,6 +1,10 @@
 import javax.swing.*;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.geom.*;
 
 /**
@@ -10,7 +14,7 @@ import java.awt.geom.*;
  * @version 2014.05.04
  */
 
-public class Canvas {
+public class Canvas implements KeyListener, ActionListener {
 	private JFrame frame;
 	private CanvasPane canvas;
 	private Graphics2D graphic;
@@ -26,6 +30,7 @@ public class Canvas {
 	 */
 	public Canvas(String title, int width, int height, Color bgColor) {
 		frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		canvas = new CanvasPane();
 		frame.setContentPane(canvas);
 		frame.setTitle(title);
@@ -172,7 +177,7 @@ public class Canvas {
 	 * @param  y      y co-ordinate for text placement
 	 */
 	public void drawString(String text, int x, int y) {
-		graphic.drawString(text, x, y);   
+		graphic.drawString(text, x, y);
 		canvas.repaint();
 	}
 
@@ -301,4 +306,38 @@ public class Canvas {
 			g.drawImage(canvasImage, 0, 0, null);
 		}
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addKeyListener(KeyListener keyListener) {
+		frame.addKeyListener(keyListener);
+	}
+	
+	public void label() {
+		JLabel textLabel = new JLabel("PAUSED",SwingConstants.CENTER); textLabel.setPreferredSize(new Dimension(300, 100));
+		frame.getContentPane().add(textLabel, BorderLayout.CENTER); 
+		frame.setLocationRelativeTo(null);
+		}
 }

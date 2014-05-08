@@ -12,7 +12,7 @@ public class Paddle {
     private int xPosition;
     private int yPosition;
     private Canvas canvas;
-    private int ySpeed;                // initial downward speed
+    public int ySpeed;                // initial downward speed
     private int ground;
 
     /**
@@ -25,7 +25,7 @@ public class Paddle {
         width = wid;
         height = he;
         canvas = drawingCanvas;
-        ySpeed = 3;
+        ySpeed = 0;
         ground = bottom;
     }
 
@@ -50,7 +50,6 @@ public class Paddle {
      * If key pressed, moves paddle up or down on x axis.
      **/
     public void move() {
-    	//TODO move on key press
         // remove from canvas at the current position
         erase();
 
@@ -59,12 +58,10 @@ public class Paddle {
         
         if (yPosition >= (ground - (height)) && ySpeed > 0) {
             yPosition = (int)(ground - (height));
-            ySpeed *= -1;
         }
         
         if (yPosition <= 50) {
             yPosition = 50;
-            ySpeed *= -1;
         }
 
         // draw again at new position
