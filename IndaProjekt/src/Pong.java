@@ -145,8 +145,8 @@ public class Pong {
 			printTestData();
 		}
 		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 40));
+		gameField.drawString("PAUSED", RIGHT/2 + LEFT/2, BOTTOM/2 + TOP/2);
 		while(paused) {
-			gameField.drawString("PAUSED", RIGHT/2 + LEFT/2, BOTTOM/2 + TOP/2);
 			// do nothing.
 		}
 		gameField.eraseString("PAUSED", RIGHT/2 + LEFT/2, BOTTOM/2 + TOP/2);
