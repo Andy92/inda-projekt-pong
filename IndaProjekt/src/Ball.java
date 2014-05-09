@@ -140,7 +140,7 @@ public class Ball {
 	 * (depending if the ball hit bottom or top side, it will accelerate on y-axis).
 	 */
 	private void checkHitLeftPaddle() {
-		//TODO needs more work
+		//TODO needs more work, add top mid and bottom mid
 		// Mid of the paddle.
 		if ((yPosition <= (padyPos + 40)) && (yPosition >= (padyPos + 20 - diameter))
 				&& (xPosition <= 90)) {
@@ -167,7 +167,7 @@ public class Ball {
 	 * (depending if the ball hit bottom or top side, it will accelerate on y-axis).
 	 */
 	private void checkHitRightPaddle() {
-		//TODO needs more work
+		//TODO needs more work, add top mid and bottom mid
 		// Mid of the paddle.
 		if ((yPosition <= (pad2yPos + 40)) && (yPosition >= (pad2yPos + 20 - diameter))
 				&& (xPosition >= (510 - diameter))) {

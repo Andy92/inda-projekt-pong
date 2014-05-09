@@ -48,7 +48,7 @@ public class Pong {
 	}
 
 	private static void createGameField() {
-		gameField = new Canvas(GAMENAME, 600, 500, secondaryColor);
+		gameField = new Canvas(GAMENAME, 600, 500, mainColor);
 		
 		/**
 		 * Action happens when specific keys are pressed.
@@ -103,6 +103,8 @@ public class Pong {
 		gameField.setVisible(true);
 
 		// draw the game
+		gameField.setForegroundColor(secondaryColor);
+		gameField.fillRectangle(LEFT - 1, TOP - 1, RIGHT - LEFT + 2, BOTTOM - TOP + 2);
 		gameField.setForegroundColor(mainColor);
 		gameField.fillRectangle(LEFT, TOP, RIGHT - LEFT, BOTTOM - TOP);
 		drawMidLine();
@@ -136,7 +138,7 @@ public class Pong {
 
 		// Initialize 'PAUSED'-text to decrease lag when pausing
 		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 40));
-		gameField.setForegroundColor(Color.BLACK);
+		gameField.setForegroundColor(mainColor);
 		gameField.drawString("PAUSED", 2*RIGHT, 2*BOTTOM);
 	}
 
@@ -155,6 +157,7 @@ public class Pong {
 			}
 			unPause();
 		}
+		//TODO EXIT GAME
 	}
 
 	public static void play() {
@@ -169,20 +172,20 @@ public class Pong {
 	}
 
 	public static void pause() {
-		gameField.setForegroundColor(Color.WHITE);
+		gameField.setForegroundColor(secondaryColor);
 		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 160/2, BOTTOM/2 + TOP/2 - 40, 160, 80);
-		gameField.setForegroundColor(Color.BLACK);
+		gameField.setForegroundColor(mainColor);
 		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 156/2, BOTTOM/2 + TOP/2 - 38, 156, 76);
-		gameField.setForegroundColor(Color.WHITE);
+		gameField.setForegroundColor(secondaryColor);
 		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 40));
 		
 		gameField.drawString("PAUSED", RIGHT/2 + LEFT/2 - 155/2, BOTTOM/2 + TOP/2);  // width is 155
 	}
 
 	public static void unPause() {
-		gameField.setForegroundColor(Color.BLACK);
+		gameField.setForegroundColor(mainColor);
 		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 160/2, BOTTOM/2 + TOP/2 - 40, 160, 80);
-		gameField.setForegroundColor(Color.WHITE);
+		gameField.setForegroundColor(secondaryColor);
 		drawMidLine();
 		ball.draw();
 	}
