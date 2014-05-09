@@ -38,6 +38,10 @@ public class Pong {
 	// color theme
 	private static Color mainColor = Color.BLACK;
 	private static Color secondaryColor = Color.WHITE;
+	
+	// player points
+	private static int pointsPlayer1 = 0;
+	private static int pointsPlayer2 = 0;
 	/**
 	 *
 	 */
@@ -76,6 +80,11 @@ public class Pong {
 						paused = false;
 					}
 				}
+				
+				if (e.getKeyCode() == 81) {
+					quit(); //TODO "Are you sure"
+				}
+				
 				if (e.getKeyCode() == 77) { // M-key for menu access.
 					// TODO
 				}
@@ -108,6 +117,13 @@ public class Pong {
 		gameField.setForegroundColor(mainColor);
 		gameField.fillRectangle(LEFT, TOP, RIGHT - LEFT, BOTTOM - TOP);
 		drawMidLine();
+		
+		// draw player points
+		drawPoints();
+		
+		//draw controls
+		drawControls();
+		
 	}
 
 	private static void drawMidLine() {
@@ -188,6 +204,38 @@ public class Pong {
 		gameField.setForegroundColor(secondaryColor);
 		drawMidLine();
 		ball.draw();
+	}
+	
+	public static void pointPlayer1() {
+		pointsPlayer1++;
+		drawPoints();
+	}
+	
+	public static void pointPlayer2() {
+		pointsPlayer2++;
+		drawPoints();
+	}
+	
+	public static void drawPoints() {
+		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 60));
+		gameField.setForegroundColor(mainColor);
+		gameField.fillRectangle(LEFT, BOTTOM + 1 , (RIGHT - LEFT)/2 - 40, 100);
+		gameField.fillRectangle((RIGHT - LEFT)/2 + 40, BOTTOM + 1 , (RIGHT - LEFT)/2 - 40, 100);
+		gameField.setForegroundColor(secondaryColor);
+		gameField.drawString(Integer.toString(pointsPlayer1), LEFT + 30, BOTTOM + 60);
+		gameField.drawString(Integer.toString(pointsPlayer2), RIGHT - 60, BOTTOM + 60);
+	}
+	
+	public static void drawControls() {
+		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 16));
+		gameField.setForegroundColor(secondaryColor);
+		gameField.drawString("m - menu", (RIGHT - LEFT)/2 - 10, BOTTOM + 20);
+		gameField.drawString("p - pause", (RIGHT - LEFT)/2 - 10, BOTTOM + 40);
+		gameField.drawString("q - quit", (RIGHT - LEFT)/2 - 10, BOTTOM + 60);
+	}
+	
+	public static void quit() {
+		System.exit(0);
 	}
 	
 	public static int getTop() {
