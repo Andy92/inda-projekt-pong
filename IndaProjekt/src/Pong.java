@@ -189,9 +189,9 @@ public class Pong {
 
 	public static void pause() {
 		gameField.setForegroundColor(secondaryColor);
-		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 160/2, BOTTOM/2 + TOP/2 - 40, 160, 80);
+		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 180/2, BOTTOM/2 + TOP/2 - 40, 180, 80);
 		gameField.setForegroundColor(mainColor);
-		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 156/2, BOTTOM/2 + TOP/2 - 38, 156, 76);
+		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 176/2, BOTTOM/2 + TOP/2 - 38, 176, 76);
 		gameField.setForegroundColor(secondaryColor);
 		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 40));
 		
@@ -200,7 +200,7 @@ public class Pong {
 
 	public static void unPause() {
 		gameField.setForegroundColor(mainColor);
-		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 160/2, BOTTOM/2 + TOP/2 - 40, 160, 80);
+		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 180/2, BOTTOM/2 + TOP/2 - 40, 180, 80);
 		gameField.setForegroundColor(secondaryColor);
 		drawMidLine();
 		ball.draw();
