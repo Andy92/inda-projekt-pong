@@ -106,11 +106,15 @@ public class Ball {
 		//TODO points on hit
 		// check if it has hit the right wall
 		if (xPosition >= Pong.getRight() - diameter) {
+			xPosition = Pong.getRight() - diameter;
+			Pong.pointPlayer2();
 			resetBall();
 		}
 
 		// check if it has hit the left wall
 		if (xPosition <= Pong.getLeft()) {
+			xPosition = Pong.getLeft();
+			Pong.pointPlayer1();
 			resetBall();
 		}
 	}
