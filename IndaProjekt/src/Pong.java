@@ -49,7 +49,7 @@ public class Pong {
 
 	private static void createGameField() {
 		gameField = new Canvas(GAMENAME, 600, 500, secondaryColor);
-
+		
 		/**
 		 * Action happens when specific keys are pressed.
 		 * Focus is set on Jframe in class Canvas.
@@ -137,7 +137,7 @@ public class Pong {
 		// Initialize 'PAUSED'-text to decrease lag when pausing
 		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 40));
 		gameField.setForegroundColor(Color.BLACK);
-		gameField.drawString("PAUSED", 2*RIGHT, BOTTOM);
+		gameField.drawString("PAUSED", 2*RIGHT, 2*BOTTOM);
 	}
 
 	/**
@@ -169,12 +169,20 @@ public class Pong {
 	}
 
 	public static void pause() {
+		gameField.setForegroundColor(Color.WHITE);
+		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 160/2, BOTTOM/2 + TOP/2 - 40, 160, 80);
+		gameField.setForegroundColor(Color.BLACK);
+		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 156/2, BOTTOM/2 + TOP/2 - 38, 156, 76);
+		gameField.setForegroundColor(Color.WHITE);
 		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 40));
-		gameField.drawString("PAUSED", RIGHT/2 + LEFT/2, BOTTOM/2 + TOP/2);
+		
+		gameField.drawString("PAUSED", RIGHT/2 + LEFT/2 - 155/2, BOTTOM/2 + TOP/2);  // width is 155
 	}
 
 	public static void unPause() {
-		gameField.eraseString("PAUSED", RIGHT/2 + LEFT/2, BOTTOM/2 + TOP/2);
+		gameField.setForegroundColor(Color.BLACK);
+		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 160/2, BOTTOM/2 + TOP/2 - 40, 160, 80);
+		gameField.setForegroundColor(Color.WHITE);
 		drawMidLine();
 		ball.draw();
 	}

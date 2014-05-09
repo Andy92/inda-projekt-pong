@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.Random;
 //import java.awt.geom.*;
 //import java.util.Random;
 
@@ -19,6 +20,7 @@ public class Ball {
 	private int ySpeed;                // initial downward speed
 	private int xSpeed;
 	private int padyPos, pad2yPos;
+	private Random rand;
 
 	/**
 	 * Constructor
@@ -40,6 +42,7 @@ public class Ball {
 		canvas = drawingCanvas;
 		this.ySpeed = ySpeed;
 		this.xSpeed = xSpeed;
+		rand = new Random();
 	}
 
 	/**
@@ -116,7 +119,7 @@ public class Ball {
 		blink(); 
 		xPosition = Pong.getRight()/2 + Pong.getLeft()/2 - diameter/2;
 		yPosition = Pong.getBottom()/2 + Pong.getTop()/2 - diameter/2;
-		ySpeed = 0;
+		ySpeed = rand.nextInt(3) - 1; // Give random initial y-axis speed between -1 and 1
 		xSpeed *= -1;
 		draw();
 		sleep(800);

@@ -334,4 +334,10 @@ public class Canvas implements KeyListener, ActionListener {
 	public void addKeyListener(KeyListener keyListener) {
 		frame.addKeyListener(keyListener);
 	}
+	
+	public FontMetrics getFontMetrics(Font f) {
+		return graphic.getFontMetrics(f);
+	}
+	
+	
 }
