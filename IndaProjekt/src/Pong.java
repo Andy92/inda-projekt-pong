@@ -219,8 +219,8 @@ public class Pong {
 	public static void drawPoints() {
 		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 60));
 		gameField.setForegroundColor(mainColor);
-		gameField.fillRectangle(LEFT, BOTTOM + 1 , (RIGHT - LEFT)/2 - 40, 100);
-		gameField.fillRectangle((RIGHT - LEFT)/2 + 40, BOTTOM + 1 , (RIGHT - LEFT)/2 - 40, 100);
+		gameField.fillRectangle(LEFT, BOTTOM + 1 , (RIGHT + LEFT)/2 - LEFT - 80, 100);
+		gameField.fillRectangle((RIGHT + LEFT)/2 + 80, BOTTOM + 1 , (RIGHT + LEFT)/2 - 80, 100);
 		gameField.setForegroundColor(secondaryColor);
 		gameField.drawString(Integer.toString(pointsPlayer1), LEFT + 30, BOTTOM + 60);
 		gameField.drawString(Integer.toString(pointsPlayer2), RIGHT - 60, BOTTOM + 60);
