@@ -40,8 +40,8 @@ public class Pong {
 	private static Color secondaryColor = Color.WHITE;
 	
 	// player points
-	private static int pointsPlayer1 = 0;
-	private static int pointsPlayer2 = 0;
+	private static int pointsPlayer1 = 97;
+	private static int pointsPlayer2 = 97;
 	/**
 	 *
 	 */
@@ -217,13 +217,28 @@ public class Pong {
 	}
 	
 	public static void drawPoints() {
+		// Improve visual appearance when points > 9 or points > 99
+		int offset1 = 0;
+		int offset2 = 0;
+		if (pointsPlayer1 > 9) {
+			offset1 += 20;
+		}
+		if (pointsPlayer1 > 99) {
+			offset1 += 10;
+		}
+		if (pointsPlayer2 > 9) {
+			offset2 += 20;
+		}
+		if (pointsPlayer2 > 99) {
+			offset2 += 20;
+		}
 		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 60));
 		gameField.setForegroundColor(mainColor);
 		gameField.fillRectangle(LEFT, BOTTOM + 1 , (RIGHT + LEFT)/2 - LEFT - 80, 100);
 		gameField.fillRectangle((RIGHT + LEFT)/2 + 80, BOTTOM + 1 , (RIGHT + LEFT)/2 - 80, 100);
 		gameField.setForegroundColor(secondaryColor);
-		gameField.drawString(Integer.toString(pointsPlayer1), LEFT + 30, BOTTOM + 60);
-		gameField.drawString(Integer.toString(pointsPlayer2), RIGHT - 60, BOTTOM + 60);
+		gameField.drawString(Integer.toString(pointsPlayer1), LEFT + 30 - offset1, BOTTOM + 60);
+		gameField.drawString(Integer.toString(pointsPlayer2), RIGHT - 60 - offset2, BOTTOM + 60);
 	}
 	
 	public static void drawControls() {
