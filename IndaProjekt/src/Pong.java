@@ -229,7 +229,7 @@ public class Pong {
 	public static void drawControls() {
 		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 16));
 		gameField.setForegroundColor(secondaryColor);
-		gameField.drawString("m - menu", (RIGHT - LEFT)/2 - 10, BOTTOM + 20);
+		gameField.drawString("m - menu (soon)", (RIGHT - LEFT)/2 - 10, BOTTOM + 20);
 		gameField.drawString("p - pause", (RIGHT - LEFT)/2 - 10, BOTTOM + 40);
 		gameField.drawString("q - quit", (RIGHT - LEFT)/2 - 10, BOTTOM + 60);
 	}
