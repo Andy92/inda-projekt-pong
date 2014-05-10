@@ -17,7 +17,7 @@ public class Pong {
 	private static boolean paused = false;
 	private static boolean quitting = false;
 	private static boolean inMenu = false;
-	
+
 	private static final String GAMENAME = "Pong";
 
 	// Positions of the bottom, top, left and right edges of the playing field.
@@ -107,8 +107,9 @@ public class Pong {
 						inMenu = false;
 					} else if (e.getKeyCode() == 82) {
 						//TODO restart game
+						restartGame();
 					}
-					
+
 				}
 			}
 
@@ -157,6 +158,17 @@ public class Pong {
 	 * 
 	 */
 	private static void createGameObjects() {
+		createPaddles();
+
+		createBall();
+
+		// Initialize 'PAUSED'-text to decrease lag when pausing
+		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 40));
+		gameField.setForegroundColor(mainColor);
+		gameField.drawString("PAUSED", 2*RIGHT, 2*BOTTOM);
+	}
+
+	public static void createPaddles() {
 		// Create 2 paddle objects.
 		int padxPos = LEFT + 20; // create pad1 to the left
 		int pad2xPos = RIGHT - PAD_WIDTH - 20; // create pad2 to the right
@@ -167,17 +179,13 @@ public class Pong {
 		padRight = new Paddle(pad2xPos, padyPos, width, height, secondaryColor, gameField, BOTTOM);
 		padLeft.draw();
 		padRight.draw();
-
+	}
+	public static void createBall() {
 		// Create a ball in the mid of game field.
 		int xPos = (RIGHT + LEFT - BALL_SIZE)/2;
 		int yPos = (BOTTOM + TOP - BALL_SIZE)/2;
 		ball = new Ball(xPos, yPos, BALL_SIZE, secondaryColor, BOTTOM, gameField, ySpeed, xSpeed);
 		ball.draw();
-
-		// Initialize 'PAUSED'-text to decrease lag when pausing
-		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 40));
-		gameField.setForegroundColor(mainColor);
-		gameField.drawString("PAUSED", 2*RIGHT, 2*BOTTOM);
 	}
 
 	/**
@@ -304,7 +312,7 @@ public class Pong {
 		drawMidLine();
 		ball.draw();
 	}
-	
+
 	public static void showMenu() {
 		//TODO
 		gameField.setForegroundColor(secondaryColor);
@@ -316,7 +324,7 @@ public class Pong {
 		gameField.drawString("Continue - press C", RIGHT/2 + LEFT/2 - 251/2, BOTTOM/2 + TOP/2 - 20);  // width is X, height is 27
 		gameField.drawString("Restart game - press R", RIGHT/2 + LEFT/2 - 251/2, BOTTOM/2 + TOP/2 + 20);  // width is X, height is 27
 	}
-	
+
 	public static void closeMenu() {
 		//TODO
 		gameField.setForegroundColor(mainColor);
@@ -324,6 +332,38 @@ public class Pong {
 		gameField.setForegroundColor(secondaryColor);
 		drawMidLine();
 		ball.draw();
+	}
+
+	public static void restartGame() {
+		resetPoints();
+		drawNewGameField();
+		drawNewGameObjects();
+		inMenu = false;
+	}
+
+	public static void resetPoints() {
+		pointsPlayer1 = 0;
+		pointsPlayer2 = 0;
+	}
+
+	public static void drawNewGameField() {
+		//draw gamefield
+		gameField.setForegroundColor(secondaryColor);
+		gameField.fillRectangle(LEFT - 1, TOP - 1, RIGHT - LEFT + 2, BOTTOM - TOP + 2);
+		gameField.setForegroundColor(mainColor);
+		gameField.fillRectangle(LEFT, TOP, RIGHT - LEFT, BOTTOM - TOP);
+		drawMidLine();
+
+		// draw player points
+		drawPoints();
+
+		//draw controls
+		drawControls();
+	}
+
+	public static void drawNewGameObjects() {
+		createPaddles();
+		createBall();
 	}
 
 	public static void quit() {
