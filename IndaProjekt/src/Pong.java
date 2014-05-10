@@ -1,10 +1,7 @@
 import java.awt.Color;
 import java.awt.Font;
-//import java.awt.Shape;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-//import javax.swing.JFrame;
 
 /**
  * Main class for the Game.
@@ -17,6 +14,7 @@ public class Pong {
 	private static boolean paused = false;
 	private static boolean quitting = false;
 	private static boolean inMenu = false;
+	private static boolean AI = false;		// Artificial intelligence for 1 player.
 
 	private static final String GAMENAME = "Pong";
 
@@ -44,34 +42,55 @@ public class Pong {
 	// player points
 	private static int pointsPlayer1 = 97;
 	private static int pointsPlayer2 = 97;
+	
 	/**
-	 *
+	 * 
 	 */
 	public static void main(String[] args) {
 		createGameField();
+		enableKeyListener();
 		createGameObjects();
 		game();
 	}
 
+	/**
+	 * Sets up and draws basic background objects for the game.
+	 */
 	private static void createGameField() {
 		gameField = new Canvas(GAMENAME, 600, 500, mainColor);
+		gameField.setVisible(true);
 
-		/**
-		 * Action happens when specific keys are pressed.
-		 * Focus is set on Jframe in class Canvas.
-		 */
+		// draw the game
+		gameField.setForegroundColor(secondaryColor);
+		gameField.fillRectangle(LEFT - 1, TOP - 1, RIGHT - LEFT + 2, BOTTOM - TOP + 2);
+		gameField.setForegroundColor(mainColor);
+		gameField.fillRectangle(LEFT, TOP, RIGHT - LEFT, BOTTOM - TOP);
+		drawMidLine();
+
+		// draw player points
+		drawPoints();
+
+		//draw controls
+		drawControls();
+	}
+	
+	/**
+	 * Enables the gameField to listen for keyboard actions.
+	 * Action happens when specific keys are pressed.
+	 */
+	private static void enableKeyListener() {
 		gameField.addKeyListener(new KeyListener() {
 			public void keyPressed(KeyEvent e) { 
-				// Left Paddle keys.
-				if (e.getKeyCode() == 87) { // If W is pressed.
+				// Left Paddle keys. (Player 1)
+				if (e.getKeyCode() == 87) { // If W is pressed
 					padLeft.setySpeed(-3);		// move upwards
 				} else if (e.getKeyCode() == 83) { // If S is pressed.
 					padLeft.setySpeed(3);			// move down
 				}
-				// Right Paddle keys.
-				if (e.getKeyCode() == 38) { // If Up-arrow is pressed.
+				// Right Paddle keys. (Player 2)
+				if ((e.getKeyCode() == 38) && (!AI)) { // If Up-arrow is pressed and AI not enabled.
 					padRight.setySpeed(-3);
-				} else if (e.getKeyCode() == 40) { // If down-arrow is pressed.
+				} else if ((e.getKeyCode() == 40) && (!AI)) { // If down-arrow is pressed.
 					padRight.setySpeed(3);
 				}
 
@@ -104,10 +123,13 @@ public class Pong {
 				if (inMenu) {
 					if (e.getKeyCode() == 67) {
 						inMenu = false;
-					} else if (e.getKeyCode() == 82) {
+					} else if (e.getKeyCode() == 50) { // "2" key
+						AI = false;
+						restartGame();
+					} else if (e.getKeyCode() == 49) { // "1" key
+						AI = true;
 						restartGame();
 					}
-
 				}
 			}
 
@@ -119,9 +141,9 @@ public class Pong {
 					padLeft.setySpeed(0);
 				}
 				// Right paddle keys.
-				if (e.getKeyCode() == 38) {
+				if ((e.getKeyCode() == 38) && (!AI)) {
 					padRight.setySpeed(0);
-				} else if (e.getKeyCode() == 40) {
+				} else if ((e.getKeyCode() == 40) && (!AI)) {
 					padRight.setySpeed(0);
 				}
 			}
@@ -129,22 +151,6 @@ public class Pong {
 				// Do nothing.
 			}
 		});
-		// TODO Add buttons (what buttons?)
-		gameField.setVisible(true);
-
-		// draw the game
-		gameField.setForegroundColor(secondaryColor);
-		gameField.fillRectangle(LEFT - 1, TOP - 1, RIGHT - LEFT + 2, BOTTOM - TOP + 2);
-		gameField.setForegroundColor(mainColor);
-		gameField.fillRectangle(LEFT, TOP, RIGHT - LEFT, BOTTOM - TOP);
-		drawMidLine();
-
-		// draw player points
-		drawPoints();
-
-		//draw controls
-		drawControls();
-
 	}
 
 	private static void drawMidLine() {
@@ -153,7 +159,7 @@ public class Pong {
 	}
 
 	/**
-	 * 
+	 * Creates objects that are used for playing the game itself.
 	 */
 	private static void createGameObjects() {
 		createPaddles();
@@ -166,6 +172,9 @@ public class Pong {
 		gameField.drawString("PAUSED", 2*RIGHT, 2*BOTTOM);
 	}
 
+	/**
+	 * Draws paddles for the players to control.
+	 */
 	public static void createPaddles() {
 		// Create 2 paddle objects.
 		int padxPos = LEFT + 20; // create pad1 to the left
@@ -178,6 +187,10 @@ public class Pong {
 		padLeft.draw();
 		padRight.draw();
 	}
+	
+	/**
+	 * Creates and draws a ball object.
+	 */
 	public static void createBall() {
 		// Create a ball in the mid of game field.
 		int xPos = (RIGHT + LEFT - BALL_SIZE)/2;
@@ -187,7 +200,7 @@ public class Pong {
 	}
 
 	/**
-	 * Plays the game.
+	 * Plays the game, organizing the methods to be called at the right time.
 	 */
 	private static void game() {
 		while(true) {
@@ -219,6 +232,9 @@ public class Pong {
 		}
 	}
 
+	/**
+	 * Is looped from the game(), makes the ball and paddles move.
+	 */
 	public static void play() {
 		gameField.wait(10); 
 		ball.receiveY(padLeft.getYPosition(), padRight.getYPosition());
@@ -226,10 +242,29 @@ public class Pong {
 		drawMidLine();
 		padLeft.move();
 		padRight.move();
+		playAI();
 		// Prints current position of ball and paddle for testing purposes. //TODO Remove after testing
 		printTestData();
 	}
+	
+	/**
+	 * This simple-minded AI is only taking the balls y position into account, and moves after it.
+	 * Therefore is this AI considered to be on level medium.
+	 */
+	private static void playAI() {
+		if (AI) {
+			if (ball.getYPosition() >= padRight.getYPosition()) {
+				padRight.setySpeed(3);
+			}
+			if (ball.getYPosition() <= padRight.getYPosition()) {
+				padRight.setySpeed(-3);
+			}
+		}
+	}
 
+	/**
+	 * Creates a sign in the middle of the gamefield, that indicates the game is paused.
+	 */
 	public static void pause() {
 		gameField.setForegroundColor(secondaryColor);
 		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 180/2, BOTTOM/2 + TOP/2 - 40, 180, 80);
@@ -241,6 +276,9 @@ public class Pong {
 		gameField.drawString("PAUSED", RIGHT/2 + LEFT/2 - 155/2, BOTTOM/2 + TOP/2 + 52/4);  // width is 155, height is 52
 	}
 
+	/**
+	 * Redraws the gamefield for continued play.
+	 */
 	public static void unPause() {
 		gameField.setForegroundColor(mainColor);
 		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 180/2, BOTTOM/2 + TOP/2 - 40, 180, 80);
@@ -249,16 +287,25 @@ public class Pong {
 		ball.draw();
 	}
 
+	/**
+	 * Increases points for player 1 (left player) with 1.
+	 */
 	public static void pointPlayer1() {
 		pointsPlayer1++;
 		drawPoints();
 	}
 
+	/**
+	 * Increases points for player 2/AI (right player) with 1.
+	 */
 	public static void pointPlayer2() {
 		pointsPlayer2++;
 		drawPoints();
 	}
 
+	/**
+	 * Visualizes the points for the players to see.
+	 */
 	public static void drawPoints() {
 		// Improve visual appearance when points > 9 or points > 99
 		int offset1 = 0;
@@ -284,6 +331,9 @@ public class Pong {
 		gameField.drawString(Integer.toString(pointsPlayer2), RIGHT - 60 - offset2, BOTTOM + 60);
 	}
 
+	/**
+	 * Draws the help-key controls on the gameField.
+	 */
 	public static void drawControls() {
 		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 16));
 		gameField.setForegroundColor(secondaryColor);
@@ -292,6 +342,9 @@ public class Pong {
 		gameField.drawString("q - quit", (RIGHT - LEFT)/2 - 10, BOTTOM + 60);
 	}
 
+	/**
+	 * Displays a small square menu on mid screen of the game and asks player if hen is sure about quitting.
+	 */
 	public static void quitMenu() {
 		gameField.setForegroundColor(secondaryColor);
 		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 270/2, BOTTOM/2 + TOP/2 - 40, 270, 80);
@@ -303,6 +356,9 @@ public class Pong {
 		gameField.drawString("Yes - Y / No - N", RIGHT/2 + LEFT/2 - 133/2, BOTTOM/2 + TOP/2 + 25); // width is 133
 	}
 
+	/**
+	 * Aborts the quit menu and continues the game play.
+	 */
 	public static void dontQuit() {
 		gameField.setForegroundColor(mainColor);
 		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 270/2, BOTTOM/2 + TOP/2 - 40, 270, 80);
@@ -311,26 +367,36 @@ public class Pong {
 		ball.draw();
 	}
 
+	/**
+	 * Displays the menu frame with options to select.
+	 */
 	public static void showMenu() {
 		//TODO needs improved appearance
 		gameField.setForegroundColor(secondaryColor);
-		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 260/2, BOTTOM/2 + TOP/2 - 40, 260, 80);
+		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 260/2, BOTTOM/2 + TOP/2 - 40, 260, 120);
 		gameField.setForegroundColor(mainColor);
-		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 256/2, BOTTOM/2 + TOP/2 - 38, 256, 76);
+		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 256/2, BOTTOM/2 + TOP/2 - 38, 256, 116);
 		gameField.setForegroundColor(secondaryColor);
 		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 20));
 		gameField.drawString("Continue - press C", RIGHT/2 + LEFT/2 - 251/2, BOTTOM/2 + TOP/2 - 20);  // width is X, height is 27
-		gameField.drawString("Restart game - press R", RIGHT/2 + LEFT/2 - 251/2, BOTTOM/2 + TOP/2 + 20);  // width is X, height is 27
+		gameField.drawString("1 Player - press 1", RIGHT/2 + LEFT/2 - 251/2, BOTTOM/2 + TOP/2 + 20);  // width is X, height is 27
+		gameField.drawString("2 Player - press 2", RIGHT/2 + LEFT/2 - 251/2, BOTTOM/2 + TOP/2 + 60);  // width is X, height is 27
 	}
 
+	/**
+	 * "closes" the menu frame and redraws the gamefield.
+	 */
 	public static void closeMenu() {
 		gameField.setForegroundColor(mainColor);
-		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 260/2, BOTTOM/2 + TOP/2 - 40, 260, 80);
+		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 260/2, BOTTOM/2 + TOP/2 - 40, 260, 120);
 		gameField.setForegroundColor(secondaryColor);
 		drawMidLine();
 		ball.draw();
 	}
 
+	/**
+	 * Resets the game by redrawing it's components again and reseting points.
+	 */
 	public static void restartGame() {
 		resetPoints();
 		drawNewGameField();
@@ -343,8 +409,11 @@ public class Pong {
 		pointsPlayer2 = 0;
 	}
 
+	/**
+	 * Draws the new gameField again.
+	 */
 	public static void drawNewGameField() {
-		//draw gamefield
+		// draw gamefield
 		gameField.setForegroundColor(secondaryColor);
 		gameField.fillRectangle(LEFT - 1, TOP - 1, RIGHT - LEFT + 2, BOTTOM - TOP + 2);
 		gameField.setForegroundColor(mainColor);
@@ -358,6 +427,9 @@ public class Pong {
 		drawControls();
 	}
 
+	/**
+	 * Draws the objects.
+	 */
 	public static void drawNewGameObjects() {
 		createPaddles();
 		createBall();
@@ -391,12 +463,12 @@ public class Pong {
 		return secondaryColor;
 	}
 
-	public static void setPaused(boolean bool) {
-		paused = bool;
-	}
-
 	public static boolean getPaused() {
 		return paused;
+	}
+	
+	public static void setPaused(boolean bool) {
+		paused = bool;
 	}
 
 	public static void printTestData() {
