@@ -97,7 +97,6 @@ public class Pong {
 				}
 
 				if (e.getKeyCode() == 77) { // M-key for menu access.
-					// TODO
 					if (!inMenu && !paused && !quitting) {
 						inMenu = true;
 					}
@@ -106,7 +105,6 @@ public class Pong {
 					if (e.getKeyCode() == 67) {
 						inMenu = false;
 					} else if (e.getKeyCode() == 82) {
-						//TODO restart game
 						restartGame();
 					}
 
@@ -131,7 +129,7 @@ public class Pong {
 				// Do nothing.
 			}
 		});
-		// TODO Add buttons
+		// TODO Add buttons (what buttons?)
 		gameField.setVisible(true);
 
 		// draw the game
@@ -222,7 +220,7 @@ public class Pong {
 	}
 
 	public static void play() {
-		gameField.wait(10); //TODO adjust refresh rate
+		gameField.wait(10); 
 		ball.receiveY(padLeft.getYPosition(), padRight.getYPosition());
 		ball.move();
 		drawMidLine();
@@ -289,32 +287,32 @@ public class Pong {
 	public static void drawControls() {
 		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 16));
 		gameField.setForegroundColor(secondaryColor);
-		gameField.drawString("m - menu (soon)", (RIGHT - LEFT)/2 - 10, BOTTOM + 20);
+		gameField.drawString("m - menu", (RIGHT - LEFT)/2 - 10, BOTTOM + 20);
 		gameField.drawString("p - pause", (RIGHT - LEFT)/2 - 10, BOTTOM + 40);
 		gameField.drawString("q - quit", (RIGHT - LEFT)/2 - 10, BOTTOM + 60);
 	}
 
 	public static void quitMenu() {
 		gameField.setForegroundColor(secondaryColor);
-		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 260/2, BOTTOM/2 + TOP/2 - 40, 260, 80);
+		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 270/2, BOTTOM/2 + TOP/2 - 40, 270, 80);
 		gameField.setForegroundColor(mainColor);
-		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 256/2, BOTTOM/2 + TOP/2 - 38, 256, 76);
+		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 266/2, BOTTOM/2 + TOP/2 - 38, 266, 76);
 		gameField.setForegroundColor(secondaryColor);
 		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-		gameField.drawString("Do You Really Want To QUIT?", RIGHT/2 + LEFT/2 - 251/2, BOTTOM/2 + TOP/2 - 20);  // width is 251, height is 27
+		gameField.drawString("Do You Really Want To QUIT?", RIGHT/2 + LEFT/2 - 251/2, BOTTOM/2 + TOP/2 - 15);  // width is 251, height is 27
 		gameField.drawString("Yes - Y / No - N", RIGHT/2 + LEFT/2 - 133/2, BOTTOM/2 + TOP/2 + 25); // width is 133
 	}
 
 	public static void dontQuit() {
 		gameField.setForegroundColor(mainColor);
-		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 260/2, BOTTOM/2 + TOP/2 - 40, 260, 80);
+		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 270/2, BOTTOM/2 + TOP/2 - 40, 270, 80);
 		gameField.setForegroundColor(secondaryColor);
 		drawMidLine();
 		ball.draw();
 	}
 
 	public static void showMenu() {
-		//TODO
+		//TODO needs improved appearance
 		gameField.setForegroundColor(secondaryColor);
 		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 260/2, BOTTOM/2 + TOP/2 - 40, 260, 80);
 		gameField.setForegroundColor(mainColor);
@@ -326,7 +324,6 @@ public class Pong {
 	}
 
 	public static void closeMenu() {
-		//TODO
 		gameField.setForegroundColor(mainColor);
 		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 260/2, BOTTOM/2 + TOP/2 - 40, 260, 80);
 		gameField.setForegroundColor(secondaryColor);

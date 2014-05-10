@@ -103,7 +103,6 @@ public class Ball {
 	}
 	
 	private void checkHitLeftRight() {
-		//TODO points on hit
 		// check if it has hit the right wall
 		if (xPosition >= Pong.getRight() - diameter) {
 			xPosition = Pong.getRight() - diameter;
