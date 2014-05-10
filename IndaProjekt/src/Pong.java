@@ -16,6 +16,8 @@ public class Pong {
 	private static Canvas gameField;
 	private static boolean paused = false;
 	private static boolean quitting = false;
+	private static boolean inMenu = false;
+	
 	private static final String GAMENAME = "Pong";
 
 	// Positions of the bottom, top, left and right edges of the playing field.
@@ -74,17 +76,19 @@ public class Pong {
 				}
 
 				if (e.getKeyCode() == 80) { // P-key for pause
-					if (!paused) {
+					if (!paused && !quitting && !inMenu) {
 						paused = true;
 					} else {
 						paused = false;
 					}
 				}
 
-				if (e.getKeyCode() == 81) {
-					quitting = true; //TODO "Are you sure"
+				if (e.getKeyCode() == 81) { // Q-key for quit menu
+					if (!quitting && !paused && !inMenu) {
+						quitting = true;
+					}
 				}
-				if (quitting) {
+				if (quitting) { // Y/N-key for quit menu
 					if (e.getKeyCode() == 89) {
 						quit();
 					} else if (e.getKeyCode() == 78)  {
@@ -94,6 +98,17 @@ public class Pong {
 
 				if (e.getKeyCode() == 77) { // M-key for menu access.
 					// TODO
+					if (!inMenu && !paused && !quitting) {
+						inMenu = true;
+					}
+				}
+				if (inMenu) {
+					if (e.getKeyCode() == 67) {
+						inMenu = false;
+					} else if (e.getKeyCode() == 82) {
+						//TODO restart game
+					}
+					
 				}
 			}
 
@@ -171,7 +186,7 @@ public class Pong {
 	private static void game() {
 		while(true) {
 			gameField.wait(1000);
-			while(!paused && !quitting) {			// If game is paused or not.
+			while(!paused && !quitting && !inMenu) {			// If game is paused or not.
 				play();
 			}
 			if (paused) {
@@ -187,6 +202,13 @@ public class Pong {
 					// do nothing
 				}
 				dontQuit();
+			}
+			if (inMenu) {
+				showMenu();
+				while (inMenu) {
+					// do nothing
+				}
+				closeMenu();
 			}
 		}
 	}
@@ -265,7 +287,6 @@ public class Pong {
 	}
 
 	public static void quitMenu() {
-		quitting = true;
 		gameField.setForegroundColor(secondaryColor);
 		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 260/2, BOTTOM/2 + TOP/2 - 40, 260, 80);
 		gameField.setForegroundColor(mainColor);
@@ -277,6 +298,27 @@ public class Pong {
 	}
 
 	public static void dontQuit() {
+		gameField.setForegroundColor(mainColor);
+		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 260/2, BOTTOM/2 + TOP/2 - 40, 260, 80);
+		gameField.setForegroundColor(secondaryColor);
+		drawMidLine();
+		ball.draw();
+	}
+	
+	public static void showMenu() {
+		//TODO
+		gameField.setForegroundColor(secondaryColor);
+		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 260/2, BOTTOM/2 + TOP/2 - 40, 260, 80);
+		gameField.setForegroundColor(mainColor);
+		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 256/2, BOTTOM/2 + TOP/2 - 38, 256, 76);
+		gameField.setForegroundColor(secondaryColor);
+		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+		gameField.drawString("Continue - press C", RIGHT/2 + LEFT/2 - 251/2, BOTTOM/2 + TOP/2 - 20);  // width is X, height is 27
+		gameField.drawString("Restart game - press R", RIGHT/2 + LEFT/2 - 251/2, BOTTOM/2 + TOP/2 + 20);  // width is X, height is 27
+	}
+	
+	public static void closeMenu() {
+		//TODO
 		gameField.setForegroundColor(mainColor);
 		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 260/2, BOTTOM/2 + TOP/2 - 40, 260, 80);
 		gameField.setForegroundColor(secondaryColor);
