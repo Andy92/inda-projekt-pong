@@ -195,7 +195,7 @@ public class Pong {
 		gameField.setForegroundColor(secondaryColor);
 		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 40));
 		
-		gameField.drawString("PAUSED", RIGHT/2 + LEFT/2 - 155/2, BOTTOM/2 + TOP/2);  // width is 155
+		gameField.drawString("PAUSED", RIGHT/2 + LEFT/2 - 155/2, BOTTOM/2 + TOP/2 + 52/4);  // width is 155, height is 52
 	}
 
 	public static void unPause() {
