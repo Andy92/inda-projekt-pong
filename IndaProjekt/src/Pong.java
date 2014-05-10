@@ -38,7 +38,7 @@ public class Pong {
 	// color theme
 	private static Color mainColor = Color.BLACK;
 	private static Color secondaryColor = Color.WHITE;
-	
+
 	// player points
 	private static int pointsPlayer1 = 97;
 	private static int pointsPlayer2 = 97;
@@ -53,7 +53,7 @@ public class Pong {
 
 	private static void createGameField() {
 		gameField = new Canvas(GAMENAME, 600, 500, mainColor);
-		
+
 		/**
 		 * Action happens when specific keys are pressed.
 		 * Focus is set on Jframe in class Canvas.
@@ -80,11 +80,18 @@ public class Pong {
 						paused = false;
 					}
 				}
-				
+
 				if (e.getKeyCode() == 81) {
-					quit(); //TODO "Are you sure"
+					quitting = true; //TODO "Are you sure"
 				}
-				
+				if (quitting) {
+					if (e.getKeyCode() == 89) {
+						quit();
+					} else if (e.getKeyCode() == 78)  {
+						quitting = false;
+					}
+				}
+
 				if (e.getKeyCode() == 77) { // M-key for menu access.
 					// TODO
 				}
@@ -117,13 +124,13 @@ public class Pong {
 		gameField.setForegroundColor(mainColor);
 		gameField.fillRectangle(LEFT, TOP, RIGHT - LEFT, BOTTOM - TOP);
 		drawMidLine();
-		
+
 		// draw player points
 		drawPoints();
-		
+
 		//draw controls
 		drawControls();
-		
+
 	}
 
 	private static void drawMidLine() {
@@ -162,18 +169,26 @@ public class Pong {
 	 * Plays the game.
 	 */
 	private static void game() {
-		while(!quitting) {
+		while(true) {
 			gameField.wait(1000);
-			while(!paused) {			// If game is paused or not.
+			while(!paused && !quitting) {			// If game is paused or not.
 				play();
-			}		
-			pause();
-			while(paused) {
-				// do nothing.
 			}
-			unPause();
+			if (paused) {
+				pause();
+				while(paused) {
+					// do nothing.
+				}
+				unPause();
+			}
+			if (quitting) {
+				quitMenu();
+				while (quitting) {
+					// do nothing
+				}
+				dontQuit();
+			}
 		}
-		//TODO EXIT GAME
 	}
 
 	public static void play() {
@@ -194,7 +209,7 @@ public class Pong {
 		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 176/2, BOTTOM/2 + TOP/2 - 38, 176, 76);
 		gameField.setForegroundColor(secondaryColor);
 		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 40));
-		
+
 		gameField.drawString("PAUSED", RIGHT/2 + LEFT/2 - 155/2, BOTTOM/2 + TOP/2 + 52/4);  // width is 155, height is 52
 	}
 
@@ -205,17 +220,17 @@ public class Pong {
 		drawMidLine();
 		ball.draw();
 	}
-	
+
 	public static void pointPlayer1() {
 		pointsPlayer1++;
 		drawPoints();
 	}
-	
+
 	public static void pointPlayer2() {
 		pointsPlayer2++;
 		drawPoints();
 	}
-	
+
 	public static void drawPoints() {
 		// Improve visual appearance when points > 9 or points > 99
 		int offset1 = 0;
@@ -240,7 +255,7 @@ public class Pong {
 		gameField.drawString(Integer.toString(pointsPlayer1), LEFT + 30 - offset1, BOTTOM + 60);
 		gameField.drawString(Integer.toString(pointsPlayer2), RIGHT - 60 - offset2, BOTTOM + 60);
 	}
-	
+
 	public static void drawControls() {
 		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 16));
 		gameField.setForegroundColor(secondaryColor);
@@ -248,11 +263,31 @@ public class Pong {
 		gameField.drawString("p - pause", (RIGHT - LEFT)/2 - 10, BOTTOM + 40);
 		gameField.drawString("q - quit", (RIGHT - LEFT)/2 - 10, BOTTOM + 60);
 	}
-	
+
+	public static void quitMenu() {
+		quitting = true;
+		gameField.setForegroundColor(secondaryColor);
+		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 260/2, BOTTOM/2 + TOP/2 - 40, 260, 80);
+		gameField.setForegroundColor(mainColor);
+		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 256/2, BOTTOM/2 + TOP/2 - 38, 256, 76);
+		gameField.setForegroundColor(secondaryColor);
+		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+		gameField.drawString("Do You Really Want To QUIT?", RIGHT/2 + LEFT/2 - 251/2, BOTTOM/2 + TOP/2 - 20);  // width is 251, height is 27
+		gameField.drawString("Yes - Y / No - N", RIGHT/2 + LEFT/2 - 133/2, BOTTOM/2 + TOP/2 + 25); // width is 133
+	}
+
+	public static void dontQuit() {
+		gameField.setForegroundColor(mainColor);
+		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 260/2, BOTTOM/2 + TOP/2 - 40, 260, 80);
+		gameField.setForegroundColor(secondaryColor);
+		drawMidLine();
+		ball.draw();
+	}
+
 	public static void quit() {
 		System.exit(0);
 	}
-	
+
 	public static int getTop() {
 		return TOP;
 	}
