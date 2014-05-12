@@ -6,8 +6,8 @@ import java.awt.event.KeyListener;
 /**
  * Main class for the Game.
  *
- * @author 
- * @version 
+ * @author	Pontus Nilsson & Andy Yousef 
+ * @version 1.0
  */
 public class Pong {
 	private static Canvas gameField;
@@ -24,10 +24,12 @@ public class Pong {
 	private static final int LEFT = 50;
 	private static final int RIGHT = 550;
 
+	// Paddles, paddle height and width in pixels
 	private static Paddle padLeft, padRight;
 	private static final int PAD_HEIGHT = 60;
 	private static final int PAD_WIDTH = 20;
 
+	// Ball, ball diameter in pixels
 	private static Ball ball;
 	private static final int BALL_SIZE = 16;
 
@@ -36,20 +38,27 @@ public class Pong {
 	private static int xSpeed = 3;
 
 	// color theme
-	private static Color mainColor = Color.BLACK;
-	private static Color secondaryColor = Color.WHITE;
+	/**
+	 * MainColor determines the color of the background and surroundings.
+	 */
+	private static final Color mainColor = Color.BLACK;
+	/**
+	 * SecondaryColor determines the color of the ball, paddles, lines etc. 
+	 */
+	private static final Color secondaryColor = Color.WHITE;
 
 	// player points
-	private static int pointsPlayer1 = 97;
-	private static int pointsPlayer2 = 97;
-	
+	private static int pointsPlayer1 = 0;
+	private static int pointsPlayer2 = 0;
+
 	/**
-	 * 
+	 * Main method for the game. Creates the gamefield, then starts the game.
 	 */
 	public static void main(String[] args) {
 		createGameField();
 		enableKeyListener();
 		createGameObjects();
+		initPaused();
 		game();
 	}
 
@@ -73,7 +82,7 @@ public class Pong {
 		//draw controls
 		drawControls();
 	}
-	
+
 	/**
 	 * Enables the gameField to listen for keyboard actions.
 	 * Action happens when specific keys are pressed.
@@ -153,6 +162,9 @@ public class Pong {
 		});
 	}
 
+	/**
+	 * DrawMidLine draws a vertical line through the mid of the gamefield.
+	 */
 	private static void drawMidLine() {
 		gameField.setForegroundColor(secondaryColor);
 		gameField.drawLine(300, TOP, 300, BOTTOM);
@@ -163,9 +175,13 @@ public class Pong {
 	 */
 	private static void createGameObjects() {
 		createPaddles();
-
 		createBall();
+	}
 
+	/**
+	 * InitPaused loads the font and prints an invisible 'paused'-sign to decrease lag in the game.
+	 */
+	private static void initPaused() {
 		// Initialize 'PAUSED'-text to decrease lag when pausing
 		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 40));
 		gameField.setForegroundColor(mainColor);
@@ -187,7 +203,7 @@ public class Pong {
 		padLeft.draw();
 		padRight.draw();
 	}
-	
+
 	/**
 	 * Creates and draws a ball object.
 	 */
@@ -205,7 +221,7 @@ public class Pong {
 	private static void game() {
 		while(true) {
 			gameField.wait(1000);
-			while(!paused && !quitting && !inMenu) {			// If game is paused or not.
+			while(!paused && !quitting && !inMenu) {	// While the game is not paused in any way.
 				play();
 			}
 			if (paused) {
@@ -246,7 +262,7 @@ public class Pong {
 		// Prints current position of ball and paddle for testing purposes. //TODO Remove after testing
 		printTestData();
 	}
-	
+
 	/**
 	 * This simple-minded AI is only taking the balls y position into account, and moves after it.
 	 * Therefore is this AI considered to be on level medium.
@@ -263,7 +279,8 @@ public class Pong {
 	}
 
 	/**
-	 * Creates a sign in the middle of the gamefield, that indicates the game is paused.
+	 * Pauses the game. Also creates a sign in the middle of the gamefield,
+	 * that indicates the game is paused.
 	 */
 	public static void pause() {
 		gameField.setForegroundColor(secondaryColor);
@@ -277,7 +294,7 @@ public class Pong {
 	}
 
 	/**
-	 * Redraws the gamefield for continued play.
+	 * Unpauses the game. Redraws the gamefield for continued play.
 	 */
 	public static void unPause() {
 		gameField.setForegroundColor(mainColor);
@@ -304,7 +321,7 @@ public class Pong {
 	}
 
 	/**
-	 * Visualizes the points for the players to see.
+	 * Visualizes the points for the players to see. Should only be needed to call when points are changed.
 	 */
 	public static void drawPoints() {
 		// Improve visual appearance when points > 9 or points > 99
@@ -404,13 +421,16 @@ public class Pong {
 		inMenu = false;
 	}
 
+	/**
+	 * Resets both players points to 0.
+	 */
 	public static void resetPoints() {
 		pointsPlayer1 = 0;
 		pointsPlayer2 = 0;
 	}
 
 	/**
-	 * Draws the new gameField again.
+	 * Draws a new gameField.
 	 */
 	public static void drawNewGameField() {
 		// draw gamefield
@@ -435,42 +455,72 @@ public class Pong {
 		createBall();
 	}
 
+	/**
+	 * Terminates the game.
+	 */
 	public static void quit() {
 		System.exit(0);
 	}
 
+	/**
+	 * Returns the value of the top edge of the gamefield box.
+	 */
 	public static int getTop() {
 		return TOP;
 	}
 
+	/**
+	 * Returns the value of the bottom edge of the gamefield box.
+	 */
 	public static int getBottom() {
 		return BOTTOM;
 	}
 
+	/**
+	 * Returns the value of the left edge of the gamefield box.
+	 */
 	public static int getLeft() {
 		return LEFT;
 	}
 
+	/**
+	 * Returns the value of the right edge of the gamefield box.
+	 */
 	public static int getRight() {
 		return RIGHT;
 	}
 
+	/**
+	 * Returns the mainColor (the color that is used for the background etc).
+	 */
 	public static Color getMainColor() {
 		return mainColor;
 	}
 
+	/**
+	 * Returns the secondaryColor (the color that is used for ball, paddles, lines etc).
+	 */
 	public static Color getSecondaryColor() {
 		return secondaryColor;
 	}
 
+	/**
+	 * Returns true if the game is paused, otherwise false.
+	 */
 	public static boolean getPaused() {
 		return paused;
 	}
-	
+
+	/**
+	 * Sets the game to be paused or unpaused.
+	 */
 	public static void setPaused(boolean bool) {
 		paused = bool;
 	}
 
+	/**
+	 * Prints data used for testing the game.
+	 */
 	public static void printTestData() {
 		int ballX = ball.getXPosition();
 		int ballY = ball.getYPosition();
