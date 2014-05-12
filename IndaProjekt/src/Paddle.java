@@ -1,10 +1,13 @@
 import java.awt.*;
 
 /**
+ * Implements a paddle used for bouncing a ball.
  * 
+ * @author Pontus Nilsson & Andy Yousef
+ * 
+ * @version 1.0
  */
 public class Paddle {
-	
     private Color color;
     private int width;
     private int height;
@@ -88,10 +91,16 @@ public class Paddle {
         return yPosition;
     }
 
+    /**
+     * Returns the current vertical speed.
+     */
 	public int getySpeed() {
 		return ySpeed;
 	}
 
+	/**
+	 * Sets a new vertical speed.
+	 */
 	public void setySpeed(int ySpeed) {
 		this.ySpeed = ySpeed;
 	}
