@@ -431,6 +431,9 @@ public class Pong {
 		ball.draw();
 	}
 
+	/**
+	 * Shows a menu to be used before playing, where it is possible to choose between 1 or 2 players.
+	 */
 	public static void showMainMenu() {
 		gameField.setForegroundColor(secondaryColor);
 		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 260/2, BOTTOM/2 + TOP/2 - 40, 260, 120);
@@ -442,6 +445,9 @@ public class Pong {
 		gameField.drawString("2 Players - press 2", RIGHT/2 + LEFT/2 - 200/2, BOTTOM/2 + TOP/2 + 50);  // width is X, height is 27
 	}
 
+	/**
+	 * Closes the mainMenu.
+	 */
 	public static void closeMainMenu() {
 		closeMenu();
 		inMainMenu = false;
