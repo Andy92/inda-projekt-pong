@@ -45,18 +45,18 @@ public class Ball {
 
 	/**
 	 * Draw this ball at its current position onto the canvas.
-	 **/
+	 */
 	public void draw() {
 		canvas.setForegroundColor(color);
 		canvas.fillCircle(xPosition, yPosition, diameter);
 	}
 
 	/**
-	 * Set the default background color black.
+	 * Set the default background color to the mainColor of the game.
 	 * Erase this ball at its current position.
-	 **/
+	 */
 	private void erase() {
-		canvas.setBackgroundColor(Color.BLACK);
+		canvas.setBackgroundColor(Pong.getMainColor());
 		canvas.eraseCircle(xPosition, yPosition, diameter);
 
 	}    
@@ -65,7 +65,7 @@ public class Ball {
 	 * Move this ball according to its position and speed and redraw.
 	 * Also creates a barrier that's a square, when a ball reaches it
 	 * will bounce.
-	 **/
+	 */
 	public void move() {
 		// remove from canvas at the current position
 		erase();
@@ -86,6 +86,10 @@ public class Ball {
 		draw();
 	}
 	
+	/**
+	 * Check if the ball has hit the top or bottom edge. If it has,
+	 * it will bounce.
+	 */
 	private void checkHitTopBottom() {
 		// check if it has hit the ground
 		if (yPosition >= (Pong.getBottom() - diameter) && ySpeed > 0) {
@@ -100,6 +104,10 @@ public class Ball {
 		}
 	}
 	
+	/**
+	 * Check if the ball has hit the left or right wall. If it has, 
+	 * a point will be awarded.
+	 */
 	private void checkHitLeftRight() {
 		// check if it has hit the right wall
 		if (xPosition >= Pong.getRight() - diameter) {
@@ -116,6 +124,10 @@ public class Ball {
 		}
 	}
 	
+	/**
+	 * ResetBall makes the ball blink to indicate a point. It then resets the ball to the starting position, 
+	 * and sleeps for 0.8 seconds before continuing the game.
+	 */
 	private void resetBall() {
 		blink(); 
 		xPosition = Pong.getRight()/2 + Pong.getLeft()/2 - diameter/2;
@@ -126,6 +138,9 @@ public class Ball {
 		sleep(800);
 	}
 	
+	/**
+	 * Makes the ball blink a few times. Is typically called to indicate a point.
+	 */
 	private void blink() {
 		for (int i = 0; i < 3; i++) {
 			sleep(300);
@@ -203,11 +218,17 @@ public class Ball {
 		return yPosition;
 	}
 
+	/**
+	 * ReceiveY is used by the Pong-class to send the y-coordinates of the paddles to this class..
+	 */
 	public void receiveY(int y, int y2) {
 		padyPos = y;
 		pad2yPos = y2;
 	}
 	
+	/**
+	 * Sleep makes the thread sleep for the specified time in ms.
+	 */
 	private void sleep(int millis) {
 		try {
 			Thread.sleep(millis);
