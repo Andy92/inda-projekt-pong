@@ -13,7 +13,8 @@ public class Pong {
 	private static Canvas gameField;
 	private static boolean paused = false;
 	private static boolean quitting = false;
-	private static boolean inMenu = false;
+	private static boolean inPauseMenu = false;
+	private static boolean inMainMenu = true;
 	private static boolean AI = false;		// Artificial intelligence for 1 player.
 
 	private static final String GAMENAME = "Pong";
@@ -104,7 +105,7 @@ public class Pong {
 				}
 
 				if (e.getKeyCode() == 80) { // P-key for pause
-					if (!paused && !quitting && !inMenu) {
+					if (!paused && !quitting && !inPauseMenu && !inMainMenu) {
 						paused = true;
 					} else {
 						paused = false;
@@ -112,7 +113,7 @@ public class Pong {
 				}
 
 				if (e.getKeyCode() == 81) { // Q-key for quit menu
-					if (!quitting && !paused && !inMenu) {
+					if (!quitting && !paused && !inPauseMenu && !inMainMenu) {
 						quitting = true;
 					}
 				}
@@ -125,19 +126,31 @@ public class Pong {
 				}
 
 				if (e.getKeyCode() == 77) { // M-key for menu access.
-					if (!inMenu && !paused && !quitting) {
-						inMenu = true;
+					if (!inPauseMenu && !paused && !quitting && !inMainMenu) {
+						inPauseMenu = true;
 					}
 				}
-				if (inMenu) {
+				if (inPauseMenu) {
 					if (e.getKeyCode() == 67) {
-						inMenu = false;
-					} else if (e.getKeyCode() == 50) { // "2" key
+						inPauseMenu = false;
+					} else if (e.getKeyCode() == 50) { // "2" key - for 2 player game
 						AI = false;
 						restartGame();
-					} else if (e.getKeyCode() == 49) { // "1" key
+					} else if (e.getKeyCode() == 49) { // "1" key - for 1 player game
 						AI = true;
 						restartGame();
+					}
+				}
+
+				if (inMainMenu) {
+					 if (e.getKeyCode() == 50) { // "2" key - for 2 player game
+						AI = false;
+						restartGame();
+						inMainMenu = false;
+					} else if (e.getKeyCode() == 49) { // "1" key - for 1 player game
+						AI = true;
+						restartGame();
+						inMainMenu = false;
 					}
 				}
 			}
@@ -221,7 +234,7 @@ public class Pong {
 	private static void game() {
 		while(true) {
 			gameField.wait(1000);
-			while(!paused && !quitting && !inMenu) {	// While the game is not paused in any way.
+			while(!paused && !quitting && !inPauseMenu && !inMainMenu) {	// While the game is not paused in any way.
 				play();
 			}
 			if (paused) {
@@ -238,12 +251,19 @@ public class Pong {
 				}
 				dontQuit();
 			}
-			if (inMenu) {
+			if (inPauseMenu) {
 				showMenu();
-				while (inMenu) {
+				while (inPauseMenu) {
 					// do nothing
 				}
 				closeMenu();
+			}
+			if (inMainMenu) {
+				showMainMenu();
+				while (inMainMenu) {
+					// do nothing
+				}
+				closeMainMenu();
 			}
 		}
 	}
@@ -411,6 +431,22 @@ public class Pong {
 		ball.draw();
 	}
 
+	public static void showMainMenu() {
+		gameField.setForegroundColor(secondaryColor);
+		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 260/2, BOTTOM/2 + TOP/2 - 40, 260, 120);
+		gameField.setForegroundColor(mainColor);
+		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 256/2, BOTTOM/2 + TOP/2 - 38, 256, 116);
+		gameField.setForegroundColor(secondaryColor);
+		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+		gameField.drawString("1 Player - press 1", RIGHT/2 + LEFT/2 - 251/2, BOTTOM/2 + TOP/2 - 10);  // width is X, height is 27
+		gameField.drawString("2 Player - press 2", RIGHT/2 + LEFT/2 - 251/2, BOTTOM/2 + TOP/2 + 40);  // width is X, height is 27
+	}
+
+	public static void closeMainMenu() {
+		closeMenu();
+		inMainMenu = false;
+	}
+
 	/**
 	 * Resets the game by redrawing it's components again and reseting points.
 	 */
@@ -418,7 +454,7 @@ public class Pong {
 		resetPoints();
 		drawNewGameField();
 		drawNewGameObjects();
-		inMenu = false;
+		inPauseMenu = false;
 	}
 
 	/**
