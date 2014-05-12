@@ -5,9 +5,9 @@ import java.util.Random;
  * Creates a ball that bounces on walls.
  *
  * 
- * @author 
+ * @author Pontus Nilsson & Andy Yousef
  *
- * @version 
+ * @version 1.0
  */
 public class Ball {
 	private Color color;
