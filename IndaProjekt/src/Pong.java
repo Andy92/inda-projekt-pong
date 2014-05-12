@@ -417,7 +417,7 @@ public class Pong {
 		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 20));
 		gameField.drawString("Continue - press C", RIGHT/2 + LEFT/2 - 251/2, BOTTOM/2 + TOP/2 - 20);  // width is X, height is 27
 		gameField.drawString("1 Player - press 1", RIGHT/2 + LEFT/2 - 251/2, BOTTOM/2 + TOP/2 + 20);  // width is X, height is 27
-		gameField.drawString("2 Player - press 2", RIGHT/2 + LEFT/2 - 251/2, BOTTOM/2 + TOP/2 + 60);  // width is X, height is 27
+		gameField.drawString("2 Players - press 2", RIGHT/2 + LEFT/2 - 251/2, BOTTOM/2 + TOP/2 + 60);  // width is X, height is 27
 	}
 
 	/**
@@ -437,9 +437,9 @@ public class Pong {
 		gameField.setForegroundColor(mainColor);
 		gameField.fillRectangle(RIGHT/2 + LEFT/2 - 256/2, BOTTOM/2 + TOP/2 - 38, 256, 116);
 		gameField.setForegroundColor(secondaryColor);
-		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 20));
-		gameField.drawString("1 Player - press 1", RIGHT/2 + LEFT/2 - 251/2, BOTTOM/2 + TOP/2 - 10);  // width is X, height is 27
-		gameField.drawString("2 Player - press 2", RIGHT/2 + LEFT/2 - 251/2, BOTTOM/2 + TOP/2 + 40);  // width is X, height is 27
+		gameField.setFont(new Font("TimesRoman", Font.PLAIN, 30));
+		gameField.drawString("1 Player - press 1", RIGHT/2 + LEFT/2 - 200/2, BOTTOM/2 + TOP/2);  // width is X, height is 27
+		gameField.drawString("2 Players - press 2", RIGHT/2 + LEFT/2 - 200/2, BOTTOM/2 + TOP/2 + 50);  // width is X, height is 27
 	}
 
 	public static void closeMainMenu() {
