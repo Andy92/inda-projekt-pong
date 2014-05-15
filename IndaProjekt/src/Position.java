@@ -1,5 +1,6 @@
 /**
- * 
+ * This class handles the positioning of the class paddle and ball.
+ * Can also change their respective positions.
  */
 public class Position {
 	private int xPosition, yPosition;
