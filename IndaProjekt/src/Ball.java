@@ -2,7 +2,7 @@ import java.awt.*;
 import java.util.Random;
 
 /**
- * Creates a ball that bounces on walls.
+ * Creates a ball that bounces on walls, and paddles.
  *
  * 
  * @author Pontus Nilsson & Andy Yousef
