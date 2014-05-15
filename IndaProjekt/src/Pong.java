@@ -5,7 +5,11 @@ import java.awt.event.KeyListener;
 
 /**
  * Main class for the Game.
- *
+ * Also handles keyboard actions, AI for 1 player option, game menu functions,
+ * runs the game with a while loop. Also have some testdata, whitch wont be visible when the game starts.
+ * This class is tested with "usertestings".
+ * 
+ * 
  * @author	Pontus Nilsson & Andy Yousef 
  * @version 1.0
  */
